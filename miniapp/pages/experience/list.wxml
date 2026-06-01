@@ -1,0 +1,119 @@
+<view class="page">
+  <!-- 顶部搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input" bindtap="onSearch">
+      <text class="search-icon">🔍</text>
+      <text class="search-placeholder">搜索考研经验...</text>
+    </view>
+    <view class="publish-btn" bindtap="onPublish">
+      <text>+</text>
+    </view>
+  </view>
+
+  <!-- 分类筛选 -->
+  <view class="category-tabs">
+    <view class="tab-item {{category === '' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="">
+      <text>全部</text>
+    </view>
+    <view class="tab-item {{category === '复习方法' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="复习方法">
+      <text>📖 复习方法</text>
+    </view>
+    <view class="tab-item {{category === '时间规划' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="时间规划">
+      <text>⏰ 时间规划</text>
+    </view>
+    <view class="tab-item {{category === '心态调整' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="心态调整">
+      <text>💪 心态调整</text>
+    </view>
+    <view class="tab-item {{category === '院校选择' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="院校选择">
+      <text>🎯 院校选择</text>
+    </view>
+  </view>
+
+  <!-- 排序 -->
+  <view class="sort-bar">
+    <view class="sort-item {{sortBy === 'newest' ? 'active' : ''}}" bindtap="onSortChange" data-sort="newest">
+      <text>最新</text>
+    </view>
+    <view class="sort-item {{sortBy === 'hot' ? 'active' : ''}}" bindtap="onSortChange" data-sort="hot">
+      <text>🔥 最热</text>
+    </view>
+  </view>
+
+  <!-- 瀑布流笔记列表 -->
+  <view class="waterfall">
+    <!-- 左列 -->
+    <view class="waterfall-column">
+      <view class="note-card" wx:for="{{notes}}" wx:key="id" wx:if="{{index % 2 === 0}}" bindtap="onNoteTap" data-id="{{item.id}}">
+        <!-- 封面图 -->
+        <image class="note-cover" src="{{item.images[0] ? item.images[0] : '/images/default-note.png'}}" mode="widthFix" wx:if="{{item.images.length > 0}}"/>
+        
+        <!-- 内容 -->
+        <view class="note-content">
+          <text class="note-title">{{item.title}}</text>
+          <text class="note-desc">{{item.content}}</text>
+          
+          <!-- 标签 -->
+          <view class="note-tags" wx:if="{{item.tags_list && item.tags_list.length > 0}}">
+            <text class="tag" wx:for="{{item.tags_list}}" wx:key="index" wx:for-item="tag">{{tag}}</text>
+          </view>
+          
+          <!-- 用户信息 -->
+          <view class="note-footer">
+            <view class="note-user">
+              <image class="user-avatar" src="{{item.avatar_url ? item.avatar_url : '/images/default-avatar.png'}}" mode="aspectFill"/>
+              <text class="user-name">{{item.nickname}}</text>
+            </view>
+            <view class="note-stats">
+              <text class="stat-item">❤ {{item.like_count}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 右列 -->
+    <view class="waterfall-column">
+      <view class="note-card" wx:for="{{notes}}" wx:key="id" wx:if="{{index % 2 === 1}}" bindtap="onNoteTap" data-id="{{item.id}}">
+        <!-- 封面图 -->
+        <image class="note-cover" src="{{item.images[0] ? item.images[0] : '/images/default-note.png'}}" mode="widthFix" wx:if="{{item.images.length > 0}}"/>
+        
+        <!-- 内容 -->
+        <view class="note-content">
+          <text class="note-title">{{item.title}}</text>
+          <text class="note-desc">{{item.content}}</text>
+          
+          <!-- 标签 -->
+          <view class="note-tags" wx:if="{{item.tags_list && item.tags_list.length > 0}}">
+            <text class="tag" wx:for="{{item.tags_list}}" wx:key="index" wx:for-item="tag">{{tag}}</text>
+          </view>
+          
+          <!-- 用户信息 -->
+          <view class="note-footer">
+            <view class="note-user">
+              <image class="user-avatar" src="{{item.avatar_url ? item.avatar_url : '/images/default-avatar.png'}}" mode="aspectFill"/>
+              <text class="user-name">{{item.nickname}}</text>
+            </view>
+            <view class="note-stats">
+              <text class="stat-item">❤ {{item.like_count}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="load-more" wx:if="{{hasMore}}">
+    <text>加载更多...</text>
+  </view>
+  <view class="no-more" wx:if="{{!hasMore && notes.length > 0}}">
+    <text>没有更多了</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && notes.length === 0}}">
+    <text class="empty-icon">📝</text>
+    <text class="empty-text">暂无经验笔记</text>
+    <text class="empty-hint">点击右上方 + 分享你的考研经验吧</text>
+  </view>
+</view>

@@ -1,0 +1,35 @@
+<view class="matching-page">
+  <view class="animation-container">
+    <view class="circle-animation">
+      <view class="outer-circle" style="animation-duration: {{animationDuration}}s;"></view>
+      <view class="inner-circle" style="animation-duration: {{animationDuration * 0.7}}s;"></view>
+      <view class="core-circle">
+        <text class="loading-icon">{{loadingIcon}}</text>
+      </view>
+    </view>
+
+    <view class="progress-info">
+      <text class="status-text">{{statusText}}</text>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progress}}%;"></view>
+      </view>
+      <text class="progress-text">{{progress}}%</text>
+    </view>
+
+    <view class="matching-tips">
+      <text class="tip">{{currentTip}}</text>
+    </view>
+
+    <view class="dimensions">
+      <view class="dimension-item" wx:for="{{dimensions}}" wx:key="name">
+        <view class="dimension-icon">{{item.icon}}</view>
+        <text class="dimension-name">{{item.name}}</text>
+        <view class="dimension-status {{item.status}}">
+          <text wx:if="{{item.status === 'done'}}">✓</text>
+          <text wx:elif="{{item.status === 'matching'}}">⟳</text>
+          <text wx:else>○</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

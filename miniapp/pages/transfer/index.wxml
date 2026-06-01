@@ -1,0 +1,118 @@
+<view class="page">
+  <!-- 顶部标题区 -->
+  <view class="hero">
+    <view class="hero-title">考研调剂查询</view>
+    <view class="hero-sub">输入你的分数和专业，查询可调剂的院校</view>
+  </view>
+
+  <!-- 查询表单 -->
+  <view class="card">
+    <view class="section-title">基本信息</view>
+    <view class="form-group">
+      <view class="label">总分</view>
+      <input class="input" type="number" placeholder="请输入考研总分" value="{{score_total}}" bindinput="onScoreInput" />
+    </view>
+    <view class="form-group">
+      <view class="label">专业代码</view>
+      <input class="input" placeholder="例如：081200" value="{{program_code}}" bindinput="onCodeInput" />
+    </view>
+    <view class="form-group">
+      <view class="label">学位类型</view>
+      <picker mode="selector" range="{{degreeTypes}}" value="{{degreeTypeIndex}}" bindchange="onDegreeTypeChange">
+        <view class="picker">{{degreeTypes[degreeTypeIndex] || '请选择'}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 偏好设置 -->
+  <view class="card">
+    <view class="section-title">地区偏好（可选）</view>
+    
+    <!-- A区/B区快捷选择 -->
+    <view class="area-quick-select">
+      <view class="area-btn {{areaFilter === 'A' ? 'active' : ''}}" bindtap="onAreaFilter" data-area="A">A区</view>
+      <view class="area-btn {{areaFilter === 'B' ? 'active' : ''}}" bindtap="onAreaFilter" data-area="B">B区</view>
+      <view class="area-btn {{areaFilter === 'all' ? 'active' : ''}}" bindtap="onAreaFilter" data-area="all">全部</view>
+    </view>
+
+    <!-- 省份选择 -->
+    <view class="province-group" wx:for="{{provinceGroups}}" wx:key="name">
+      <view class="group-header" bindtap="toggleGroup" data-group="{{item.name}}">
+        <text class="group-name">{{item.name}}</text>
+        <text class="group-arrow">{{expandedGroups[item.name] ? '▲' : '▼'}}</text>
+      </view>
+      <view class="tags" wx:if="{{expandedGroups[item.name]}}">
+        <view class="tag {{itemItem.selected ? 'selected' : ''}}" wx:for="{{item.provinces}}" wx:key="name" wx:for-item="itemItem" bindtap="onProvinceToggle" data-name="{{itemItem.name}}">
+          {{itemItem.name}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 已选地区 -->
+    <view class="selected-provinces" wx:if="{{selectedProvinces.length > 0}}">
+      <view class="selected-label">已选：</view>
+      <view class="selected-list">
+        <view class="selected-tag" wx:for="{{selectedProvinces}}" wx:key="*this">
+          <text>{{item}}</text>
+          <text class="tag-remove" bindtap="onProvinceToggle" data-name="{{item}}">×</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 查询按钮 -->
+  <view class="btn-container">
+    <button class="button" bindtap="queryTransfer" loading="{{loading}}" disabled="{{loading}}">
+      {{loading ? '查询中...' : '查询调剂机会'}}
+    </button>
+  </view>
+
+  <!-- 调剂指南 -->
+  <view class="card" wx:if="{{!result}}">
+    <view class="section-title">调剂指南</view>
+    <view class="guide-item" wx:for="{{guide.process}}" wx:key="*this">
+      <text class="guide-text">{{item}}</text>
+    </view>
+    <view class="guide-divider"></view>
+    <view class="guide-item" wx:for="{{guide.tips}}" wx:key="*this">
+      <text class="guide-text tip">💡 {{item}}</text>
+    </view>
+    <view class="guide-divider"></view>
+    <view class="guide-item" wx:for="{{guide.notes}}" wx:key="*this">
+      <text class="guide-text note">⚠️ {{item}}</text>
+    </view>
+  </view>
+
+  <!-- 查询结果 -->
+  <view class="card" wx:if="{{result}}">
+    <view class="section-title">查询结果</view>
+    <view class="summary">{{result.summary}}</view>
+    
+    <view wx:if="{{result.opportunities.length > 0}}">
+      <view class="list-item" wx:for="{{result.opportunities}}" wx:key="id" bindtap="goToSchool" data-id="{{item.school_id}}">
+        <view class="item-header">
+          <text class="item-name">{{item.school_name}}</text>
+          <view class="difficulty-tag difficulty-{{item.transfer_difficulty}}">
+            {{item.transfer_difficulty === 'easy' ? '容易' : (item.transfer_difficulty === 'medium' ? '中等' : '困难')}}
+          </view>
+        </view>
+        <view class="item-info">
+          <text class="info-text">{{item.province}} {{item.city}}</text>
+          <text class="info-text">复试线：{{item.reexam_score}}分</text>
+        </view>
+        <view class="item-info">
+          <text class="info-text">招生：{{item.planned_enrollment}}人</text>
+          <text class="info-text">报录比：{{item.application_admission_ratio || '未知'}}</text>
+        </view>
+        <view class="item-info">
+          <text class="info-text highlight">你的分数优势：{{item.score_gap}}分</text>
+        </view>
+      </view>
+    </view>
+    
+    <view wx:else class="empty-state">
+      <text class="empty-text">暂无匹配的调剂机会</text>
+      <text class="empty-hint">建议调整分数或专业后重试</text>
+    </view>
+  </view>
+</view>

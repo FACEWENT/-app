@@ -1,0 +1,37 @@
+<view class="page">
+  <!-- 顶部标题 -->
+  <view class="header">
+    <text class="title">我的消息</text>
+  </view>
+
+  <!-- 聊天列表 -->
+  <view class="chat-list" wx:if="{{chats.length > 0}}">
+    <view 
+      class="chat-item" 
+      wx:for="{{chats}}" 
+      wx:key="chat_id"
+      bindtap="onChatTap"
+      data-chat-id="{{item.chat_id}}"
+    >
+      <image class="chat-avatar" src="{{item.avatar_url || '/images/default-avatar.png'}}" mode="aspectFill"/>
+      <view class="chat-info">
+        <text class="chat-nickname">{{item.nickname}}</text>
+        <text class="chat-last-message">{{item.last_message || '暂无消息'}}</text>
+      </view>
+      <view class="chat-meta">
+        <text class="chat-time">{{item.last_message_at ? item.last_message_at : ''}}</text>
+        <view class="unread-badge" wx:if="{{item.unread_count > 0}}">
+          <text>{{item.unread_count > 99 ? '99+' : item.unread_count}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <image class="empty-icon" src="/images/empty.png" mode="aspectFit"/>
+    <text class="empty-text">还没有消息</text>
+    <text class="empty-hint">去匹配网友开始聊天吧</text>
+    <button class="btn btn-primary" bindtap="goToMatch">去匹配</button>
+  </view>
+</view>

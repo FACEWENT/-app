@@ -1,0 +1,111 @@
+<view class="result-page" wx:if="{{matchData}}">
+  <!-- 匹配成功头部 -->
+  <view class="result-header">
+    <view class="success-animation">✨</view>
+    <view class="success-title">匹配成功</view>
+    <view class="success-subtitle">找到最适合你的考研研友</view>
+  </view>
+
+  <!-- 匹配度展示 -->
+  <view class="score-section">
+    <view class="score-ring">
+      <view class="score-bg"></view>
+      <view class="score-progress" style="background: conic-gradient(#667eea {{matchData.score * 3.6}}deg, transparent 0deg);"></view>
+      <view class="score-center">
+        <text class="score-number">{{matchData.score}}</text>
+        <text class="score-unit">%</text>
+      </view>
+    </view>
+    <view class="score-label">匹配度</view>
+  </view>
+
+  <!-- 匹配用户信息 -->
+  <view class="user-card">
+    <view class="user-header">
+      <image class="user-avatar" src="{{matchData.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <view class="user-info">
+        <view class="user-name">{{matchData.nickname}}</view>
+        <view class="user-major">{{matchData.major}}</view>
+      </view>
+    </view>
+    
+    <view class="user-details">
+      <view class="detail-item">
+        <view class="detail-icon">🏫</view>
+        <view class="detail-content">
+          <view class="detail-label">学校</view>
+          <view class="detail-value">{{matchData.school}}</view>
+        </view>
+      </view>
+      
+      <view class="detail-item">
+        <view class="detail-icon">📅</view>
+        <view class="detail-content">
+          <view class="detail-label">考研年份</view>
+          <view class="detail-value">{{matchData.exam_year}}</view>
+        </view>
+      </view>
+      
+      <view class="detail-item">
+        <view class="detail-icon">📚</view>
+        <view class="detail-content">
+          <view class="detail-label">目标专业</view>
+          <view class="detail-value">{{matchData.target_major}}</view>
+        </view>
+      </view>
+      
+      <view class="detail-item">
+        <view class="detail-icon">🎓</view>
+        <view class="detail-content">
+          <view class="detail-label">学位类型</view>
+          <view class="detail-value">{{matchData.degree_type === 'academic' ? '学硕' : (matchData.degree_type === 'professional' ? '专硕' : '-')}}</view>
+        </view>
+      </view>
+      
+      <view class="detail-item">
+        <view class="detail-icon">💡</view>
+        <view class="detail-content">
+          <view class="detail-label">学习风格</view>
+          <view class="detail-value">{{matchData.learning_style || '-'}}</view>
+        </view>
+      </view>
+      
+      <view class="detail-item">
+        <view class="detail-icon">😊</view>
+        <view class="detail-content">
+          <view class="detail-label">性格类型</view>
+          <view class="detail-value">{{matchData.personality || '-'}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 个人简介 -->
+    <view class="bio-section" wx:if="{{matchData.bio}}">
+      <view class="bio-title">个人简介</view>
+      <view class="bio-content">{{matchData.bio}}</view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button class="action-btn accept-btn" bindtap="handleAccept">
+      <view class="btn-icon">👋</view>
+      <view class="btn-text">打招呼</view>
+    </button>
+    <view class="action-row">
+      <button class="action-btn secondary-btn" bindtap="handleReject">
+        <view class="btn-icon">🔄</view>
+        <view class="btn-text">换一个</view>
+      </button>
+      <button class="action-btn secondary-btn" bindtap="goBack">
+        <view class="btn-icon">←</view>
+        <view class="btn-text">返回</view>
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 加载中 -->
+<view class="loading-page" wx:if="{{!matchData}}">
+  <view class="loading-text">加载中...</view>
+</view>

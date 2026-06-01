@@ -1,0 +1,39 @@
+<view class="page">
+  <!-- 聊天消息列表 -->
+  <scroll-view class="message-list" scroll-y scroll-into-view="{{scrollToId}}" scroll-with-animation>
+    <view class="message-item" wx:for="{{messages}}" wx:key="id" id="msg-{{item.id}}">
+      <!-- 对方发送的消息 -->
+      <view class="message" wx:if="{{item.sender_id !== userId}}" style="flex-direction: row;">
+        <image class="message-avatar" src="{{otherUser.avatar_url || '/images/default-avatar.png'}}" mode="aspectFill"/>
+        <view class="message-content">
+          <text class="message-text">{{item.content}}</text>
+        </view>
+      </view>
+
+      <!-- 自己发送的消息 -->
+      <view class="message" wx:else style="flex-direction: row-reverse;">
+        <image class="message-avatar" src="{{myAvatar || '/images/default-avatar.png'}}" mode="aspectFill"/>
+        <view class="message-content" style="background: #667eea;">
+          <text class="message-text" style="color: #fff;">{{item.content}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{messages.length === 0}}">
+      <text>开始聊天吧</text>
+    </view>
+  </scroll-view>
+
+  <!-- 底部输入框 -->
+  <view class="input-bar">
+    <input 
+      class="input" 
+      value="{{inputText}}" 
+      placeholder="输入消息..."
+      bindinput="onInput"
+      bindconfirm="onSend"
+      confirm-type="send"
+    />
+    <button class="send-btn" bindtap="onSend" disabled="{{!inputText}}">发送</button>
+  </view>
+</view>

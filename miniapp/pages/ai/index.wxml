@@ -1,0 +1,75 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">AI智能择校</view>
+    <view class="hero-subtitle">输入分数、专业代码和偏好，直接给你择校结论</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">开始提问</view>
+    <textarea
+      class="input"
+      placeholder="例：我考340分，085404，想留在江苏，帮我做冲稳保"
+      value="{{question}}"
+      bindinput="onInput"
+    />
+    <button class="button" loading="{{loading}}" bindtap="onSubmit">开始解读</button>
+    <view class="chip-list">
+      <view
+        class="chip"
+        wx:for="{{quickPrompts}}"
+        wx:key="*this"
+        data-value="{{item}}"
+        bindtap="onQuickTap"
+      >
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{result}}">
+    <view class="section-title">解读结果</view>
+    <view style="margin-top: 18rpx; line-height: 1.7;">{{result.summary}}</view>
+    <view class="muted" style="margin-top: 16rpx;">
+      识别条件：{{result.parsed_profile.score_total}} 分 / {{result.parsed_profile.program_code}}
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{result.plan}}">
+    <view class="section-title">冲刺院校</view>
+    <view class="list-item" wx:for="{{result.plan.rush}}" wx:key="id" data-id="{{item.institution_id}}" bindtap="openSchool">
+      <view class="item-title">{{item.school_name}} · {{item.program_name}}</view>
+      <view class="tag-row">
+        <view class="tag risk-rush">冲</view>
+        <view class="tag">复试线 {{item.reexam_score}}</view>
+        <view class="tag">招生 {{item.enrollment}}</view>
+      </view>
+      <view class="muted" style="margin-top: 14rpx;">{{item.reason}}</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{result.plan}}">
+    <view class="section-title">稳妥院校</view>
+    <view class="list-item" wx:for="{{result.plan.match}}" wx:key="id" data-id="{{item.institution_id}}" bindtap="openSchool">
+      <view class="item-title">{{item.school_name}} · {{item.program_name}}</view>
+      <view class="tag-row">
+        <view class="tag risk-match">稳</view>
+        <view class="tag">复试线 {{item.reexam_score}}</view>
+        <view class="tag">招生 {{item.enrollment}}</view>
+      </view>
+      <view class="muted" style="margin-top: 14rpx;">{{item.reason}}</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{result.plan}}">
+    <view class="section-title">保底院校</view>
+    <view class="list-item" wx:for="{{result.plan.safe}}" wx:key="id" data-id="{{item.institution_id}}" bindtap="openSchool">
+      <view class="item-title">{{item.school_name}} · {{item.program_name}}</view>
+      <view class="tag-row">
+        <view class="tag risk-safe">保</view>
+        <view class="tag">复试线 {{item.reexam_score}}</view>
+        <view class="tag">招生 {{item.enrollment}}</view>
+      </view>
+      <view class="muted" style="margin-top: 14rpx;">{{item.reason}}</view>
+    </view>
+  </view>
+</view>

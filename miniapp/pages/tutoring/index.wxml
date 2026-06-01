@@ -1,0 +1,125 @@
+<view class="page">
+  <!-- 目标院校信息 -->
+  <view class="target-school-card" wx:if="{{targetSchool}}" bindtap="onChangeTarget">
+    <view class="school-header">
+      <text class="school-label">🎯 目标院校</text>
+      <text class="change-btn">更换</text>
+    </view>
+    <view class="school-info">
+      <text class="school-name">{{targetSchool.school_name}}</text>
+      <text class="major-name" wx:if="{{targetSchool.major_name}}">{{targetSchool.major_name}}</text>
+    </view>
+  </view>
+
+  <!-- 首次设置目标院校 -->
+  <view class="set-target-modal" wx:if="{{!targetSchool && showSetTarget}}">
+    <view class="modal-content">
+      <text class="modal-title">设置你的目标院校</text>
+      <text class="modal-desc">我们将为你匹配相关教学信息</text>
+      
+      <view class="form-item">
+        <text class="label">目标学校</text>
+        <picker bindchange="onSchoolChange" range="{{schoolList}}" range-key="name">
+          <view class="picker">{{schoolIndex >= 0 ? schoolList[schoolIndex].name : '请选择学校'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="label">目标专业</text>
+        <picker bindchange="onMajorChange" range="{{majorList}}" range-key="name">
+          <view class="picker">{{majorIndex >= 0 ? majorList[majorIndex].name : '请选择专业（可选）'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="label">考研年份</text>
+        <picker bindchange="onYearChange" range="{{yearList}}">
+          <view class="picker">{{yearList[yearIndex]}}</view>
+        </picker>
+      </view>
+
+      <button class="btn-primary" bindtap="onSubmitTarget">确定</button>
+    </view>
+  </view>
+
+  <!-- 科目分类 -->
+  <view class="subject-tabs" wx:if="{{targetSchool}}">
+    <view class="tab-item {{subjectType === '' ? 'active' : ''}}" bindtap="onSubjectChange" data-type="">
+      <text>全部</text>
+    </view>
+    <view class="tab-item {{subjectType === 'math' ? 'active' : ''}}" bindtap="onSubjectChange" data-type="math">
+      <text>📐 数学</text>
+    </view>
+    <view class="tab-item {{subjectType === 'english' ? 'active' : ''}}" bindtap="onSubjectChange" data-type="english">
+      <text>📖 英语</text>
+    </view>
+    <view class="tab-item {{subjectType === 'politics' ? 'active' : ''}}" bindtap="onSubjectChange" data-type="politics">
+      <text>🏛️ 政治</text>
+    </view>
+    <view class="tab-item {{subjectType === 'professional' ? 'active' : ''}}" bindtap="onSubjectChange" data-type="professional">
+      <text>📚 专业课</text>
+    </view>
+  </view>
+
+  <!-- 教学信息列表 -->
+  <scroll-view class="post-list" scroll-y wx:if="{{targetSchool}}" bindscrolltolower="onLoadMore">
+    <view class="tutor-card" wx:for="{{posts}}" wx:key="id" bindtap="onPostTap" data-id="{{item.id}}">
+      <!-- 教师信息 -->
+      <view class="tutor-header">
+        <image class="tutor-avatar" src="{{item.teacher_avatar ? item.teacher_avatar : (item.avatar_url ? item.avatar_url : '/images/default-avatar.png')}}" mode="aspectFill"/>
+        <view class="tutor-info">
+          <text class="tutor-name">{{item.nickname}}</text>
+          <text class="tutor-school">{{item.current_school}} {{item.current_major}}</text>
+        </view>
+        <view class="tutor-score" wx:if="{{item.subject_score}}">
+          <text class="score-label">{{item.subject_name}}</text>
+          <text class="score-value">{{item.subject_score}}分</text>
+        </view>
+      </view>
+
+      <!-- 标题和内容 -->
+      <text class="card-title">{{item.title}}</text>
+      <text class="card-content">{{item.content}}</text>
+
+      <!-- 标签 -->
+      <view class="card-tags">
+        <text class="tag tag-subject">{{item.subject_name}}</text>
+        <text class="tag tag-mode">{{item.teaching_mode === 'online' ? '线上' : item.teaching_mode === 'offline' ? '线下' : '线上线下'}}</text>
+        <text class="tag tag-school">{{item.school_name}}</text>
+      </view>
+
+      <!-- 底部 -->
+      <view class="card-footer">
+        <view class="price">
+          <text class="price-value">¥{{item.price}}</text>
+          <text class="price-unit">{{item.teaching_mode === 'online' ? '/小时' : '/套'}}</text>
+        </view>
+        <view class="stats">
+          <text>👁 {{item.view_count}}</text>
+          <text>❤ {{item.like_count}}</text>
+          <text>📋 {{item.order_count}}单</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore}}">
+      <text>加载更多...</text>
+    </view>
+    <view class="no-more" wx:if="{{!hasMore && posts.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && posts.length === 0 && targetSchool}}">
+      <text class="empty-icon">👨‍🏫</text>
+      <text class="empty-text">暂无教学信息</text>
+      <text class="empty-hint">成为第一个发布教学信息的老师吧</text>
+    </view>
+  </scroll-view>
+
+  <!-- 发布按钮 -->
+  <view class="publish-fab" wx:if="{{targetSchool}}" bindtap="onPublish">
+    <text>+</text>
+  </view>
+</view>

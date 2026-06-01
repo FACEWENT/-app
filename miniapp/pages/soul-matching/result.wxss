@@ -1,0 +1,253 @@
+.result-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  padding-bottom: 40rpx;
+}
+
+/* 匹配成功头部 */
+.result-header {
+  text-align: center;
+  padding: 60rpx 40rpx 40rpx;
+}
+
+.success-animation {
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20rpx); }
+}
+
+.success-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 15rpx;
+}
+
+.success-subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 匹配度展示 */
+.score-section {
+  text-align: center;
+  margin-bottom: 50rpx;
+}
+
+.score-ring {
+  position: relative;
+  width: 280rpx;
+  height: 280rpx;
+  margin: 0 auto 20rpx;
+}
+
+.score-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.score-progress {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.score-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.score-number {
+  font-size: 80rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.score-unit {
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.score-label {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 用户卡片 */
+.user-card {
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 30rpx 30rpx;
+  border-radius: 30rpx;
+  padding: 30rpx;
+}
+
+.user-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-right: 25rpx;
+  border: 4rpx solid #667eea;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10rpx;
+}
+
+.user-major {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 详情列表 */
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 25rpx;
+  margin-bottom: 30rpx;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+}
+
+.detail-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.detail-content {
+  flex: 1;
+}
+
+.detail-label {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 5rpx;
+}
+
+.detail-value {
+  font-size: 28rpx;
+  color: #fff;
+}
+
+/* 个人简介 */
+.bio-section {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 25rpx;
+  border-radius: 20rpx;
+}
+
+.bio-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 15rpx;
+}
+
+.bio-content {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+/* 操作按钮 */
+.action-section {
+  padding: 0 30rpx;
+}
+
+.accept-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  border: none;
+  border-radius: 50rpx;
+  height: 100rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accept-btn::after {
+  border: none;
+}
+
+.action-row {
+  display: flex;
+  gap: 20rpx;
+}
+
+.secondary-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: none;
+  border-radius: 50rpx;
+  height: 90rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.secondary-btn::after {
+  border: none;
+}
+
+.btn-icon {
+  margin-right: 10rpx;
+  font-size: 32rpx;
+}
+
+.btn-text {
+  font-size: 28rpx;
+}
+
+/* 加载中 */
+.loading-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.5);
+}

@@ -1,0 +1,87 @@
+<view class="soul-matching-page">
+  <!-- 顶部星球动画 -->
+  <view class="planet-container">
+    <view class="planet">
+      <view class="planet-glow"></view>
+      <view class="planet-ring"></view>
+      <view class="planet-icon">🎓</view>
+    </view>
+    <view class="planet-title">灵魂匹配</view>
+    <view class="planet-subtitle">找到最适合你的考研研友</view>
+  </view>
+
+  <!-- 匹配按钮区 -->
+  <view class="match-buttons">
+    <!-- 免费随机匹配 -->
+    <view class="match-btn free-match" bindtap="onFreeMatch">
+      <view class="btn-icon">⚡</view>
+      <view class="btn-title">快速匹配</view>
+      <view class="btn-desc">免费 · 随机匹配研友</view>
+      <view class="btn-glow"></view>
+    </view>
+
+    <!-- 付费高级匹配 -->
+    <view class="match-btn premium-match" bindtap="onPremiumMatch">
+      <view class="btn-icon">💎</view>
+      <view class="btn-title">灵魂匹配</view>
+      <view class="btn-desc">¥9.9 · 智能算法 · 5维度匹配</view>
+      <view class="btn-badge">高级</view>
+    </view>
+  </view>
+
+  <!-- 匹配特色 -->
+  <view class="features">
+    <view class="feature-item">
+      <view class="feature-icon">🎯</view>
+      <view class="feature-text">智能算法</view>
+    </view>
+    <view class="feature-item">
+      <view class="feature-icon">📚</view>
+      <view class="feature-text">专业匹配</view>
+    </view>
+    <view class="feature-item">
+      <view class="feature-icon">💪</view>
+      <view class="feature-text">学习互助</view>
+    </view>
+    <view class="feature-item">
+      <view class="feature-icon">🤝</view>
+      <view class="feature-text">性格契合</view>
+    </view>
+  </view>
+
+  <!-- 匹配记录 -->
+  <view class="match-history" wx:if="{{matchRecords.length > 0}}">
+    <view class="history-title">最近匹配</view>
+    <view class="history-list">
+      <view class="history-item" wx:for="{{matchRecords}}" wx:key="id" bindtap="viewMatchRecord" data-id="{{item.id}}">
+        <image class="history-avatar" src="{{item.matched_user_avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+        <view class="history-info">
+          <view class="history-name">{{item.matched_user_nickname}}</view>
+          <view class="history-detail">{{item.matched_user_major}} · 匹配度 {{item.match_score}}%</view>
+        </view>
+        <view class="history-status {{item.status}}">
+          {{item.status === 'accepted' ? '已接受' : (item.status === 'rejected' ? '已拒绝' : '待处理')}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 使用说明 -->
+  <view class="usage-tips">
+    <view class="tips-title">匹配说明</view>
+    <view class="tips-content">
+      <view class="tip-item">
+        <text class="tip-label">⚡ 快速匹配</text>
+        <text class="tip-desc">免费随机匹配在线研友，即刻开始交流</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-label">💎 灵魂匹配</text>
+        <text class="tip-desc">设置偏好，智能算法为您找到最合适的研友</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-label">🎯 5维匹配</text>
+        <text class="tip-desc">考研年份、目标专业、学位类型、学习风格、性格偏好</text>
+      </view>
+    </view>
+  </view>
+</view>

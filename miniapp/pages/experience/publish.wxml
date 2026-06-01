@@ -1,0 +1,53 @@
+<view class="page">
+  <view class="form">
+    <!-- 标题 -->
+    <view class="form-item">
+      <text class="label">标题</text>
+      <input class="input" placeholder="请输入标题" value="{{title}}" bindinput="onInputTitle" maxlength="50"/>
+    </view>
+
+    <!-- 分类 -->
+    <view class="form-item">
+      <text class="label">分类</text>
+      <view class="category-grid">
+        <view class="category-item {{category === '复习方法' ? 'active' : ''}}" bindtap="onSelectCategory" data-category="复习方法">📖 复习方法</view>
+        <view class="category-item {{category === '时间规划' ? 'active' : ''}}" bindtap="onSelectCategory" data-category="时间规划">⏰ 时间规划</view>
+        <view class="category-item {{category === '心态调整' ? 'active' : ''}}" bindtap="onSelectCategory" data-category="心态调整">💪 心态调整</view>
+        <view class="category-item {{category === '院校选择' ? 'active' : ''}}" bindtap="onSelectCategory" data-category="院校选择">🎯 院校选择</view>
+      </view>
+    </view>
+
+    <!-- 内容 -->
+    <view class="form-item">
+      <text class="label">正文</text>
+      <textarea class="textarea" placeholder="分享你的考研经验和心得..." value="{{content}}" bindinput="onInputContent" maxlength="2000"/>
+      <text class="char-count">{{content.length}}/2000</text>
+    </view>
+
+    <!-- 图片 -->
+    <view class="form-item">
+      <text class="label">添加图片</text>
+      <view class="image-list">
+        <view class="image-item" wx:for="{{images}}" wx:key="index">
+          <image class="image-preview" src="{{item}}" mode="aspectFill"/>
+          <view class="image-delete" bindtap="onDeleteImage" data-index="{{index}}">×</view>
+        </view>
+        <view class="image-add" bindtap="onAddImage" wx:if="{{images.length < 9}}">
+          <text>+</text>
+          <text class="image-hint">添加图片</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 标签 -->
+    <view class="form-item">
+      <text class="label">标签（可选，用空格分隔）</text>
+      <input class="input" placeholder="例如：考研 数学 英语" value="{{tagsInput}}" bindinput="onInputTags"/>
+    </view>
+
+    <!-- 提交按钮 -->
+    <button class="submit-btn" bindtap="onSubmit" disabled="{{submitting}}">
+      {{submitting ? '发布中...' : '发布笔记'}}
+    </button>
+  </view>
+</view>

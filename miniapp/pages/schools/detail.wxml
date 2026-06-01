@@ -1,0 +1,167 @@
+<view class="page" wx:if="{{school}}">
+  <!-- 学校头部 -->
+  <view class="school-header">
+    <view class="school-name">{{school.name}}</view>
+    <view class="school-location">{{school.province}} · {{school.city}}</view>
+    <view class="school-levels">
+      <view class="level-tag tag-985" wx:if="{{school.is_985}}">985</view>
+      <view class="level-tag tag-211" wx:if="{{school.is_211}}">211</view>
+      <view class="level-tag tag-double" wx:if="{{school.is_double_first_class}}">双一流</view>
+      <view class="level-tag tag-type" wx:if="{{school.school_type}}">{{school.school_type}}</view>
+      <view class="level-tag tag-self" wx:if="{{school.is_self_marking}}">自划线</view>
+    </view>
+    <view class="school-ranking" wx:if="{{school.ranking}}">全国排名：第{{school.ranking}}名</view>
+  </view>
+
+  <!-- 统计概览 -->
+  <view class="stats-section">
+    <view class="stat-item">
+      <view class="stat-value">{{school.stats.program_count}}</view>
+      <view class="stat-label">招生专业</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-value">{{school.stats.year_count}}</view>
+      <view class="stat-label">数据年份</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-value">{{school.stats.avg_admission_ratio || '-'}}</view>
+      <view class="stat-label">平均报录比</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-value">{{school.stats.avg_retest_score || '-'}}</view>
+      <view class="stat-label">平均复试线</view>
+    </view>
+  </view>
+
+  <!-- 学校简介 -->
+  <view class="section" wx:if="{{school.intro}}">
+    <view class="section-title">学校简介</view>
+    <view class="section-content">{{school.intro}}</view>
+  </view>
+
+  <!-- 招生专业列表 -->
+  <view class="section">
+    <view class="section-title">招生专业（近三年数据）</view>
+    
+    <view class="program-card" wx:for="{{school.programs}}" wx:key="program_id">
+      <view class="program-header" bindtap="toggleProgram" data-id="{{item.program_id}}">
+        <view class="program-info">
+          <view class="program-name">{{item.program_name}}</view>
+          <view class="program-code">{{item.program_code}} · {{item.degree_type === 'academic' ? '学硕' : '专硕'}} · {{item.department_name}}</view>
+        </view>
+        <view class="program-toggle">{{expandedPrograms[item.program_id] ? '▲' : '▼'}}</view>
+      </view>
+
+      <!-- 展开详情 -->
+      <view class="program-detail" wx:if="{{expandedPrograms[item.program_id]}}">
+        <!-- 基本信息 -->
+        <view class="info-grid">
+          <view class="info-item">
+            <view class="info-label">学制</view>
+            <view class="info-value">{{item.academic_system || '-'}}</view>
+          </view>
+          <view class="info-item">
+            <view class="info-label">学费</view>
+            <view class="info-value">{{item.tuition_fee ? '¥' + item.tuition_fee : '-'}}</view>
+          </view>
+        </view>
+
+        <!-- 考试科目 -->
+        <view class="detail-block" wx:if="{{item.exam_subjects}}">
+          <view class="block-title">考试科目</view>
+          <view class="block-content">
+            <view class="subject-item" wx:for="{{item.exam_subjects}}" wx:key="*this">{{item}}</view>
+          </view>
+        </view>
+
+        <!-- 参考书目 -->
+        <view class="detail-block" wx:if="{{item.reference_books}}">
+          <view class="block-title">参考书目</view>
+          <view class="block-content">
+            <view class="book-item" wx:for="{{item.reference_books}}" wx:key="*this">{{item}}</view>
+          </view>
+        </view>
+
+        <!-- 历年数据 -->
+        <view class="history-section">
+          <view class="history-title">历年招录数据</view>
+          
+          <view class="history-table">
+            <view class="table-header">
+              <view class="cell year">年份</view>
+              <view class="cell enrollment">招生/录取</view>
+              <view class="cell ratio">报录比</view>
+              <view class="cell retest">复试线</view>
+              <view class="cell admission">录取线</view>
+            </view>
+            
+            <view class="table-row" wx:for="{{item.history}}" wx:key="year">
+              <view class="cell year">{{item.year}}</view>
+              <view class="cell enrollment">{{item.planned_enrollment || '-'}}/{{item.actual_enrollment || '-'}}</view>
+              <view class="cell ratio">{{item.application_admission_ratio || '-'}}</view>
+              <view class="cell retest">{{item.retest_total_score || '-'}}</view>
+              <view class="cell admission">{{item.admit_low_score || '-'}}</view>
+            </view>
+          </view>
+
+          <!-- 复试分数线详情 -->
+          <view class="score-detail" wx:for="{{item.history}}" wx:key="year" wx:if="{{item.retest_politics_score || item.retest_english_score}}">
+            <view class="detail-title">{{item.year}}年复试分数线</view>
+            <view class="score-grid">
+              <view class="score-item" wx:if="{{item.retest_politics_score}}">
+                <view class="score-label">政治</view>
+                <view class="score-value">{{item.retest_politics_score}}</view>
+              </view>
+              <view class="score-item" wx:if="{{item.retest_english_score}}">
+                <view class="score-label">英语</view>
+                <view class="score-value">{{item.retest_english_score}}</view>
+              </view>
+              <view class="score-item" wx:if="{{item.retest_subject_one_score}}">
+                <view class="score-label">业务课一</view>
+                <view class="score-value">{{item.retest_subject_one_score}}</view>
+              </view>
+              <view class="score-item" wx:if="{{item.retest_subject_two_score}}">
+                <view class="score-label">业务课二</view>
+                <view class="score-value">{{item.retest_subject_two_score}}</view>
+              </view>
+            </view>
+          </view>
+
+          <!-- 录取分数详情 -->
+          <view class="score-detail" wx:for="{{item.history}}" wx:key="year" wx:if="{{item.admit_avg_score}}">
+            <view class="detail-title">{{item.year}}年录取分数</view>
+            <view class="score-grid">
+              <view class="score-item" wx:if="{{item.admit_low_score}}">
+                <view class="score-label">最低分</view>
+                <view class="score-value">{{item.admit_low_score}}</view>
+              </view>
+              <view class="score-item" wx:if="{{item.admit_avg_score}}">
+                <view class="score-label">平均分</view>
+                <view class="score-value">{{item.admit_avg_score}}</view>
+              </view>
+              <view class="score-item" wx:if="{{item.admit_high_score}}">
+                <view class="score-label">最高分</view>
+                <view class="score-value">{{item.admit_high_score}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部链接 -->
+  <view class="bottom-links">
+    <view class="link-item" wx:if="{{school.website}}" bindtap="openLink" data-url="{{school.website}}">
+      <text>学校官网</text>
+    </view>
+    <view class="link-item" wx:if="{{school.graduate_website}}" bindtap="openLink" data-url="{{school.graduate_website}}">
+      <text>研究生院官网</text>
+    </view>
+  </view>
+</view>
+
+<!-- 加载中 -->
+<view class="loading-page" wx:if="{{loading}}">
+  <view class="loading-text">加载中...</view>
+</view>

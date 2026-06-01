@@ -1,0 +1,13 @@
+{
+  "description": "研究生择校数据系统",
+  "appid": "touristappid",
+  "projectname": "grad-school-data-system",
+  "compileType": "miniprogram",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": false
+  }
+}

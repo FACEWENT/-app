@@ -1,0 +1,56 @@
+<view class="matching-page">
+  <!-- 星球旋转动画 -->
+  <view class="planet-animation">
+    <view class="center-planet">
+      <view class="planet-core">{{matchType === 'free' ? '⚡' : '💎'}}</view>
+    </view>
+    
+    <!-- 旋转的轨道 -->
+    <view class="orbit orbit-1">
+      <view class="orbit-dot">👤</view>
+    </view>
+    <view class="orbit orbit-2">
+      <view class="orbit-dot">👤</view>
+    </view>
+    <view class="orbit orbit-3">
+      <view class="orbit-dot">👤</view>
+    </view>
+  </view>
+
+  <!-- 匹配状态文字 -->
+  <view class="status-section">
+    <view class="main-text">{{statusText}}</view>
+    <view class="sub-text">{{subText}}</view>
+  </view>
+
+  <!-- 进度条 -->
+  <view class="progress-container">
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{progress}}%"></view>
+    </view>
+    <view class="progress-percent">{{progress}}%</view>
+  </view>
+
+  <!-- 匹配维度（仅高级匹配显示） -->
+  <view class="match-dimensions" wx:if="{{matchType === 'premium'}}">
+    <view class="dimension-item" wx:for="{{dimensions}}" wx:key="name">
+      <view class="dimension-icon">{{item.icon}}</view>
+      <view class="dimension-name">{{item.name}}</view>
+      <view class="dimension-status {{item.status}}">
+        <text wx:if="{{item.status === 'done'}}">✓</text>
+        <text wx:elif="{{item.status === 'matching'}}">⟳</text>
+        <text wx:else>○</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提示文字 -->
+  <view class="tips-text">
+    <text>{{tipText}}</text>
+  </view>
+
+  <!-- 取消按钮 -->
+  <view class="cancel-btn" bindtap="onCancel">
+    <text>取消匹配</text>
+  </view>
+</view>

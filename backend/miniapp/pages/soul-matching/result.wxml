@@ -1,0 +1,57 @@
+<view class="result-page">
+  <view class="result-card">
+    <view class="header">
+      <view class="success-icon">✨</view>
+      <view class="title">匹配成功！</view>
+      <view class="subtitle">为你找到最适合的考研研友</view>
+    </view>
+
+    <view class="match-score">
+      <view class="score-circle">
+        <text class="score">{{matchData.score}}</text>
+        <text class="score-label">匹配度</text>
+      </view>
+    </view>
+
+    <view class="user-info">
+      <image class="avatar" src="{{matchData.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <view class="user-details">
+        <text class="nickname">{{matchData.nickname}}</text>
+        <text class="info">{{matchData.major}} · {{matchData.school}}</text>
+      </view>
+    </view>
+
+    <view class="match-details">
+      <view class="detail-row">
+        <text class="label">考研年份</text>
+        <text class="value">{{matchData.exam_year}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="label">目标专业</text>
+        <text class="value">{{matchData.target_major}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="label">学位类型</text>
+        <text class="value">{{matchData.degree_type}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="label">学习风格</text>
+        <text class="value">{{matchData.learning_style}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="label">性格类型</text>
+        <text class="value">{{matchData.personality}}</text>
+      </view>
+    </view>
+
+    <view class="bio-section" wx:if="{{matchData.bio}}">
+      <text class="section-title">个人简介</text>
+      <text class="bio">{{matchData.bio}}</text>
+    </view>
+
+    <view class="actions">
+      <button class="accept-btn" bindtap="handleAccept">接受匹配</button>
+      <button class="reject-btn" bindtap="handleReject">继续匹配</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,110 @@
+<view class="detail-page">
+  <!-- 瞬间内容 -->
+  <view class="moment-card" wx:if="{{moment}}">
+    <!-- 作者信息 -->
+    <view class="author-section">
+      <image class="author-avatar" src="{{moment.avatar_url || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <view class="author-info">
+        <text class="author-name">{{moment.nickname}}</text>
+        <text class="publish-time">{{moment.created_at_str}}</text>
+      </view>
+      <view class="follow-btn" wx:if="{{!moment.is_following}}">
+        <text>+ 关注</text>
+      </view>
+    </view>
+
+    <!-- 文字内容 -->
+    <view class="content-section">
+      <text class="content-text">{{moment.content}}</text>
+      
+      <!-- 标签 -->
+      <view class="tags" wx:if="{{moment.tags && moment.tags.length > 0}}">
+        <text class="tag" wx:for="{{moment.tags}}" wx:key="*this">#{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 图片轮播 -->
+    <view class="images-section" wx:if="{{moment.images && moment.images.length > 0}}">
+      <swiper class="image-swiper" indicator-dots="{{moment.images.length > 1}}" indicator-active-color="#ff6b6b">
+        <swiper-item wx:for="{{moment.images}}" wx:key="index">
+          <image class="full-image" src="{{item}}" mode="widthFix" bindtap="previewImage" data-index="{{index}}"></image>
+        </swiper-item>
+      </swiper>
+    </view>
+
+    <!-- 位置信息 -->
+    <view class="location-section" wx:if="{{moment.location_name || moment.city}}">
+      <text class="location-icon">📍</text>
+      <text class="location-text">{{moment.location_name || moment.province + ' ' + moment.city}}</text>
+    </view>
+
+    <!-- 互动数据 -->
+    <view class="stats-section">
+      <text class="stats-text">{{moment.like_count}} 次喜欢 · {{moment.comment_count}} 条评论</text>
+    </view>
+  </view>
+
+  <!-- 互动按钮 -->
+  <view class="action-bar">
+    <view class="action-item {{moment && moment.is_liked ? 'liked' : ''}}" bindtap="onLike">
+      <text class="action-icon">{{moment && moment.is_liked ? '❤️' : '🤍'}}</text>
+      <text class="action-text">{{moment ? moment.like_count : 0}}</text>
+    </view>
+    <view class="action-item" bindtap="focusComment">
+      <text class="action-icon">💬</text>
+      <text class="action-text">评论</text>
+    </view>
+    <view class="action-item">
+      <text class="action-icon">↗️</text>
+      <text class="action-text">分享</text>
+    </view>
+  </view>
+
+  <!-- 评论区 -->
+  <view class="comments-section">
+    <view class="comments-header">
+      <text class="comments-title">评论 ({{comments.length}})</text>
+    </view>
+
+    <view class="comment-list">
+      <view class="comment-item" wx:for="{{comments}}" wx:key="id">
+        <image class="comment-avatar" src="{{item.avatar_url || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+        <view class="comment-content">
+          <view class="comment-header">
+            <text class="comment-author">{{item.nickname}}</text>
+            <text class="comment-time">{{item.created_at_str}}</text>
+          </view>
+          <text class="comment-text">{{item.content}}</text>
+          
+          <!-- 评论回复 -->
+          <view class="comment-replies" wx:if="{{item.replies && item.replies.length > 0}}">
+            <view class="reply-item" wx:for="{{item.replies}}" wx:key="id" wx:for-item="reply">
+              <text class="reply-author">{{reply.nickname}}:</text>
+              <text class="reply-text">{{reply.content}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-comments" wx:if="{{comments.length === 0}}">
+      <text class="empty-icon">💬</text>
+      <text class="empty-text">暂无评论</text>
+      <text class="empty-hint">来说两句吧~</text>
+    </view>
+  </view>
+
+  <!-- 底部评论输入框 -->
+  <view class="comment-input-bar">
+    <input 
+      class="comment-input" 
+      placeholder="说点什么..." 
+      value="{{commentContent}}"
+      bindinput="onCommentInput"
+      focus="{{inputFocus}}"
+      bindconfirm="submitComment"
+    />
+    <button class="submit-btn" bindtap="submitComment">发送</button>
+  </view>
+</view>

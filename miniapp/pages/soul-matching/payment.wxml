@@ -1,0 +1,61 @@
+<view class="payment-page">
+  <view class="payment-card">
+    <view class="header">
+      <view class="icon">🎯</view>
+      <view class="title">灵魂匹配</view>
+      <view class="subtitle">智能匹配最适合你的考研研友</view>
+    </view>
+
+    <view class="order-info">
+      <view class="row">
+        <text class="label">订单类型</text>
+        <text class="value">灵魂匹配服务</text>
+      </view>
+      <view class="row">
+        <text class="label">匹配次数</text>
+        <text class="value">1次</text>
+      </view>
+      <view class="row">
+        <text class="label">匹配维度</text>
+        <text class="value">5维度智能匹配</text>
+      </view>
+    </view>
+
+    <view class="price-section">
+      <view class="price-label">支付金额</view>
+      <view class="price">
+        <text class="symbol">¥</text>
+        <text class="amount">9.9</text>
+      </view>
+    </view>
+
+    <view class="features">
+      <view class="feature">
+        <text class="check">✓</text>
+        <text class="text">考研年份匹配</text>
+      </view>
+      <view class="feature">
+        <text class="check">✓</text>
+        <text class="text">目标专业匹配</text>
+      </view>
+      <view class="feature">
+        <text class="check">✓</text>
+        <text class="text">学习风格匹配</text>
+      </view>
+      <view class="feature">
+        <text class="check">✓</text>
+        <text class="text">性格偏好匹配</text>
+      </view>
+      <view class="feature">
+        <text class="check">✓</text>
+        <text class="text">匹配度评分</text>
+      </view>
+    </view>
+
+    <button class="pay-btn" bindtap="handlePay">确认支付</button>
+
+    <view class="tips">
+      <text>支付后开始匹配，匹配结果将保存至匹配记录</text>
+    </view>
+  </view>
+</view>

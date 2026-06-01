@@ -1,0 +1,69 @@
+<view class="page">
+  <!-- 教学信息详情 -->
+  <view class="detail-card" wx:if="{{post}}">
+    <!-- 教师信息 -->
+    <view class="teacher-section">
+      <image class="teacher-avatar" src="{{post.teacher_avatar ? post.teacher_avatar : (post.avatar_url ? post.avatar_url : '/images/default-avatar.png')}}" mode="aspectFill"/>
+      <view class="teacher-info">
+        <text class="teacher-name">{{post.nickname}}</text>
+        <text class="teacher-school">{{post.current_school}} · {{post.current_major}}</text>
+      </view>
+      <view class="teacher-score" wx:if="{{post.subject_score}}">
+        <text class="score-label">{{post.subject_name}}</text>
+        <text class="score-value">{{post.subject_score}}分</text>
+      </view>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="info-section">
+      <text class="title">{{post.title}}</text>
+      <view class="price-row">
+        <text class="price">¥{{post.price}}</text>
+        <text class="price-unit">{{post.teaching_mode === 'online' ? '/小时' : '/套'}}</text>
+      </view>
+    </view>
+
+    <!-- 标签 -->
+    <view class="tags-section">
+      <text class="tag tag-subject">{{post.subject_name}}</text>
+      <text class="tag tag-mode">{{post.teaching_mode === 'online' ? '线上' : post.teaching_mode === 'offline' ? '线下' : '线上线下均可'}}</text>
+      <text class="tag tag-school">{{post.school_name}}</text>
+    </view>
+
+    <!-- 详细介绍 -->
+    <view class="content-section">
+      <text class="section-title">个人介绍</text>
+      <text class="content">{{post.content}}</text>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="contact-section" wx:if="{{post.contact_info}}">
+      <text class="section-title">联系方式</text>
+      <text class="contact">{{post.contact_info}}</text>
+    </view>
+
+    <!-- 统计信息 -->
+    <view class="stats-section">
+      <text class="stat-item">👁 浏览 {{post.view_count}}</text>
+      <text class="stat-item">❤ 点赞 {{post.like_count}}</text>
+      <text class="stat-item">📋 成交 {{post.order_count}}单</text>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar" wx:if="{{post}}">
+    <view class="action-btn like-btn {{post.is_liked ? 'liked' : ''}}" bindtap="onLike">
+      <text>{{post.is_liked ? '❤' : '🤍'}}</text>
+      <text>{{post.like_count}}</text>
+    </view>
+    <view class="action-btn chat-btn" bindtap="onContact">
+      <text>💬</text>
+      <text>联系TA</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

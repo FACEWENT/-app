@@ -1,0 +1,59 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">个人中心</view>
+    <view class="hero-subtitle">管理你的考研择校数据</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">考研服务</view>
+    
+    <!-- 目标院校 -->
+    <view class="list-item" bindtap="onTargetSchool">
+      <view class="item-left">
+        <view class="item-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">🎯</view>
+        <view class="item-content">
+          <view class="item-title">目标院校</view>
+          <view class="item-desc" wx:if="{{targetSchool}}">{{targetSchool.school_name}} {{targetSchool.major_name || ''}}</view>
+          <view class="item-desc" wx:else>设置你的目标院校和专业</view>
+        </view>
+      </view>
+      <view class="item-arrow">›</view>
+    </view>
+
+    <!-- 我的收藏 -->
+    <view class="list-item">
+      <view class="item-left">
+        <view class="item-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">⭐</view>
+        <view class="item-content">
+          <view class="item-title">我的收藏</view>
+          <view class="item-desc">已收藏的院校和专业</view>
+        </view>
+      </view>
+      <view class="item-arrow">›</view>
+    </view>
+
+    <!-- 浏览历史 -->
+    <view class="list-item">
+      <view class="item-left">
+        <view class="item-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">👁</view>
+        <view class="item-content">
+          <view class="item-title">浏览历史</view>
+          <view class="item-desc">查看过的院校和专业</view>
+        </view>
+      </view>
+      <view class="item-arrow">›</view>
+    </view>
+
+    <!-- 个人画像 -->
+    <view class="list-item">
+      <view class="item-left">
+        <view class="item-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">👤</view>
+        <view class="item-content">
+          <view class="item-title">个人画像</view>
+          <view class="item-desc">设置考研目标和偏好</view>
+        </view>
+      </view>
+      <view class="item-arrow">›</view>
+    </view>
+  </view>
+</view>

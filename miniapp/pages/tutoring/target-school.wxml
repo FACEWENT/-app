@@ -1,0 +1,38 @@
+<view class="page">
+  <view class="form-card">
+    <view class="form-title">设置目标院校</view>
+    <view class="form-desc">这将用于匹配相关的教学信息</view>
+
+    <!-- 目标学校 -->
+    <view class="form-item">
+      <text class="label">目标学校</text>
+      <picker bindchange="onSchoolChange" range="{{schoolList}}" range-key="name">
+        <view class="picker">{{schoolIndex >= 0 ? schoolList[schoolIndex].name : '请选择学校'}}</view>
+      </picker>
+    </view>
+
+    <!-- 目标专业 -->
+    <view class="form-item">
+      <text class="label">目标专业（可选）</text>
+      <picker bindchange="onMajorChange" range="{{majorList}}" range-key="name">
+        <view class="picker">{{majorIndex >= 0 ? majorList[majorIndex].name : '请选择专业'}}</view>
+      </picker>
+    </view>
+
+    <!-- 考研年份 -->
+    <view class="form-item">
+      <text class="label">考研年份</text>
+      <picker bindchange="onYearChange" range="{{yearList}}">
+        <view class="picker">{{yearList[yearIndex]}}</view>
+      </picker>
+    </view>
+
+    <!-- 提交按钮 -->
+    <button class="submit-btn" bindtap="onSubmit" disabled="{{submitting}}">
+      {{submitting ? '保存中...' : '保存'}}
+    </button>
+
+    <!-- 取消按钮 -->
+    <button class="cancel-btn" bindtap="onCancel">取消</button>
+  </view>
+</view>

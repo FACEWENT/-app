@@ -1,0 +1,117 @@
+<view class="preferences-page">
+  <!-- 顶部标题 -->
+  <view class="page-header">
+    <view class="header-icon">💎</view>
+    <view class="header-title">灵魂匹配</view>
+    <view class="header-desc">设置你的偏好，智能算法为你找到最合适的研友</view>
+  </view>
+
+  <!-- 匹配维度说明 -->
+  <view class="dimensions-intro">
+    <view class="dimension-badge">📅 考研年份</view>
+    <view class="dimension-badge">📚 目标专业</view>
+    <view class="dimension-badge">🎓 学位类型</view>
+    <view class="dimension-badge">💡 学习风格</view>
+    <view class="dimension-badge">😊 性格偏好</view>
+  </view>
+
+  <!-- 设置表单 -->
+  <view class="form-section">
+    <!-- 性别偏好 -->
+    <view class="form-card">
+      <view class="card-title">
+        <text class="title-icon">👤</text>
+        <text class="title-text">性别偏好</text>
+      </view>
+      <view class="option-tags">
+        <view class="option-tag {{genderPreference === 'any' ? 'active' : ''}}" bindtap="onSelectGender" data-value="any">不限</view>
+        <view class="option-tag {{genderPreference === 'male' ? 'active' : ''}}" bindtap="onSelectGender" data-value="male">男生</view>
+        <view class="option-tag {{genderPreference === 'female' ? 'active' : ''}}" bindtap="onSelectGender" data-value="female">女生</view>
+      </view>
+    </view>
+
+    <!-- 考研年份 -->
+    <view class="form-card">
+      <view class="card-title">
+        <text class="title-icon">📅</text>
+        <text class="title-text">考研年份</text>
+      </view>
+      <picker bindchange="onExamYearChange" range="{{yearList}}" value="{{examYearIndex}}">
+        <view class="option-picker">
+          <text>{{yearList[examYearIndex]}}</text>
+          <text class="picker-arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 目标专业 -->
+    <view class="form-card">
+      <view class="card-title">
+        <text class="title-icon">📚</text>
+        <text class="title-text">目标专业（可选）</text>
+      </view>
+      <input class="option-input" placeholder="例如：计算机科学与技术" value="{{targetMajor}}" bindinput="onInputMajor"/>
+    </view>
+
+    <!-- 学位类型 -->
+    <view class="form-card">
+      <view class="card-title">
+        <text class="title-icon">🎓</text>
+        <text class="title-text">学位类型</text>
+      </view>
+      <view class="option-tags">
+        <view class="option-tag {{targetDegreeType === 'academic' ? 'active' : ''}}" bindtap="onSelectDegree" data-value="academic">学硕</view>
+        <view class="option-tag {{targetDegreeType === 'professional' ? 'active' : ''}}" bindtap="onSelectDegree" data-value="professional">专硕</view>
+        <view class="option-tag {{targetDegreeType === '' ? 'active' : ''}}" bindtap="onSelectDegree" data-value="">不限</view>
+      </view>
+    </view>
+
+    <!-- 学习风格 -->
+    <view class="form-card">
+      <view class="card-title">
+        <text class="title-icon">💡</text>
+        <text class="title-text">学习风格</text>
+      </view>
+      <view class="option-tags">
+        <view class="option-tag {{studyStyle === '早起型' ? 'active' : ''}}" bindtap="onSelectStudyStyle" data-value="早起型">🌅 早起型</view>
+        <view class="option-tag {{studyStyle === '夜猫子' ? 'active' : ''}}" bindtap="onSelectStudyStyle" data-value="夜猫子">🌙 夜猫子</view>
+        <view class="option-tag {{studyStyle === '均衡型' ? 'active' : ''}}" bindtap="onSelectStudyStyle" data-value="均衡型">⚖️ 均衡型</view>
+      </view>
+    </view>
+
+    <!-- 性格偏好 -->
+    <view class="form-card">
+      <view class="card-title">
+        <text class="title-icon">😊</text>
+        <text class="title-text">性格偏好</text>
+      </view>
+      <view class="option-tags">
+        <view class="option-tag {{personalityType === '外向' ? 'active' : ''}}" bindtap="onSelectPersonality" data-value="外向">😊 外向</view>
+        <view class="option-tag {{personalityType === '内向' ? 'active' : ''}}" bindtap="onSelectPersonality" data-value="内向">🤫 内向</view>
+        <view class="option-tag {{personalityType === '' ? 'active' : ''}}" bindtap="onSelectPersonality" data-value="">不限</view>
+      </view>
+    </view>
+
+    <!-- 学习强度 -->
+    <view class="form-card">
+      <view class="card-title">
+        <text class="title-icon">💪</text>
+        <text class="title-text">学习强度</text>
+      </view>
+      <view class="option-tags">
+        <view class="option-tag {{studyIntensity === '高强度' ? 'active' : ''}}" bindtap="onSelectIntensity" data-value="高强度">🔥 高强度</view>
+        <view class="option-tag {{studyIntensity === '适中' ? 'active' : ''}}" bindtap="onSelectIntensity" data-value="适中">😌 适中</view>
+        <view class="option-tag {{studyIntensity === '轻松' ? 'active' : ''}}" bindtap="onSelectIntensity" data-value="轻松">🍃 轻松</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-actions">
+    <view class="price-info">
+      <view class="price">¥9.9</view>
+      <view class="price-desc">智能匹配 · 5维度分析 · 高匹配度</view>
+    </view>
+    <button class="submit-btn" bindtap="onSubmit">开始匹配</button>
+  </view>
+</view>

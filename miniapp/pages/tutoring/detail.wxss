@@ -1,0 +1,215 @@
+.page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 120rpx;
+}
+
+.detail-card {
+  background: #fff;
+  margin: 20rpx;
+  border-radius: 16rpx;
+  padding: 30rpx;
+}
+
+/* 教师信息 */
+.teacher-section {
+  display: flex;
+  align-items: center;
+  padding-bottom: 30rpx;
+  margin-bottom: 30rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.teacher-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #f5f5f5;
+  margin-right: 20rpx;
+}
+
+.teacher-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.teacher-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.teacher-school {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.teacher-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4rpx;
+}
+
+.score-label {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.score-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #667eea;
+}
+
+/* 基本信息 */
+.info-section {
+  margin-bottom: 30rpx;
+}
+
+.title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16rpx;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+}
+
+.price {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #ff4757;
+}
+
+.price-unit {
+  font-size: 26rpx;
+  color: #999;
+  margin-left: 8rpx;
+}
+
+/* 标签 */
+.tags-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 30rpx;
+}
+
+.tag {
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+.tag-subject {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.tag-mode {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.tag-school {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+/* 详细介绍 */
+.content-section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16rpx;
+}
+
+.content {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 联系方式 */
+.contact-section {
+  padding: 20rpx;
+  background: #f9f9f9;
+  border-radius: 12rpx;
+  margin-bottom: 30rpx;
+}
+
+.contact {
+  display: block;
+  font-size: 28rpx;
+  color: #667eea;
+  margin-top: 8rpx;
+}
+
+/* 统计信息 */
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 20rpx 0;
+  border-top: 1rpx solid #f5f5f5;
+}
+
+.stat-item {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 底部操作栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: #fff;
+  padding: 20rpx;
+  box-shadow: 0 -4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #666;
+  gap: 4rpx;
+}
+
+.like-btn.liked {
+  color: #ff4757;
+}
+
+.chat-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: 40rpx;
+  padding: 20rpx;
+  margin-left: 20rpx;
+}
+
+/* 加载状态 */
+.loading {
+  text-align: center;
+  padding: 60rpx;
+  color: #999;
+  font-size: 28rpx;
+}

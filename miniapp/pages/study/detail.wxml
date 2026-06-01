@@ -1,0 +1,67 @@
+<view class="page">
+  <!-- 帖子详情 -->
+  <view class="detail-card" wx:if="{{post}}">
+    <!-- 图片轮播 -->
+    <swiper class="image-swiper" wx:if="{{post.images && post.images.length > 0}}" indicator-dots autoplay>
+      <swiper-item wx:for="{{post.images}}" wx:key="index">
+        <image class="swiper-image" src="{{item.image_url}}" mode="aspectFill"/>
+      </swiper-item>
+    </swiper>
+
+    <!-- 基本信息 -->
+    <view class="info-section">
+      <text class="title">{{post.title}}</text>
+      <view class="price-row">
+        <text class="price">¥{{post.price}}</text>
+        <text class="original-price" wx:if="{{post.original_price}}">¥{{post.original_price}}</text>
+        <text class="condition">{{post.condition_level === 'new' ? '全新' : post.condition_level === 'like_new' ? '九成新' : post.condition_level === 'good' ? '七成新' : '五成新'}}</text>
+      </view>
+    </view>
+
+    <!-- 位置 -->
+    <view class="location-row" wx:if="{{post.city}}">
+      <text>📍 {{post.province}} {{post.city}} {{post.detail_address}}</text>
+    </view>
+
+    <!-- 详细介绍 -->
+    <view class="content-section">
+      <text class="section-title">详细介绍</text>
+      <text class="content">{{post.content}}</text>
+    </view>
+
+    <!-- 标签 -->
+    <view class="tags-section" wx:if="{{post.tags && post.tags.length > 0}}">
+      <text class="tag" wx:for="{{post.tags}}" wx:key="index">{{item}}</text>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="contact-section" wx:if="{{post.contact_info}}">
+      <text class="section-title">联系方式</text>
+      <text class="contact">{{post.contact_info}}</text>
+    </view>
+
+    <!-- 用户信息 -->
+    <view class="user-section">
+      <image class="user-avatar" src="{{post.avatar_url ? post.avatar_url : '/images/default-avatar.png'}}" mode="aspectFill"/>
+      <text class="user-name">{{post.nickname}}</text>
+      <text class="view-count">浏览 {{post.view_count}}</text>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar" wx:if="{{post}}">
+    <view class="action-btn like-btn {{post.is_liked ? 'liked' : ''}}" bindtap="onLike">
+      <text>{{post.is_liked ? '❤' : '🤍'}}</text>
+      <text>{{post.like_count}}</text>
+    </view>
+    <view class="action-btn chat-btn" bindtap="onChat">
+      <text>💬</text>
+      <text>联系TA</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

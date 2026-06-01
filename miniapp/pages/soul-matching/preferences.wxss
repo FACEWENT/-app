@@ -1,0 +1,167 @@
+.preferences-page {
+  min-height: 100vh;
+  background: #f5f7fa;
+  padding-bottom: 200rpx;
+}
+
+/* 顶部标题 */
+.page-header {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 60rpx 40rpx 50rpx;
+  text-align: center;
+}
+
+.header-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.header-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 15rpx;
+}
+
+.header-desc {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 匹配维度说明 */
+.dimensions-intro {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15rpx;
+  padding: 30rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+
+.dimension-badge {
+  padding: 12rpx 24rpx;
+  background: #f8f9fa;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 表单区域 */
+.form-section {
+  padding: 0 30rpx;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25rpx;
+}
+
+.title-icon {
+  font-size: 36rpx;
+  margin-right: 15rpx;
+}
+
+.title-text {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 选项标签 */
+.option-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.option-tag {
+  padding: 20rpx 35rpx;
+  background: #f8f9fa;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  color: #666;
+  border: 2rpx solid transparent;
+}
+
+.option-tag.active {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  color: #fff;
+  border-color: #f5576c;
+}
+
+/* 下拉选择器 */
+.option-picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25rpx 30rpx;
+  background: #f8f9fa;
+  border-radius: 15rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.picker-arrow {
+  color: #999;
+  font-size: 24rpx;
+}
+
+/* 输入框 */
+.option-input {
+  padding: 25rpx 30rpx;
+  background: #f8f9fa;
+  border-radius: 15rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 底部操作区 */
+.bottom-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 30rpx;
+  box-shadow: 0 -10rpx 30rpx rgba(0, 0, 0, 0.05);
+}
+
+.price-info {
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+
+.price {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #f5576c;
+  margin-bottom: 10rpx;
+}
+
+.price-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  color: #fff;
+  border: none;
+  border-radius: 50rpx;
+  height: 90rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.submit-btn::after {
+  border: none;
+}

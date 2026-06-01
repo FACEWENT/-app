@@ -1,0 +1,87 @@
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+.message-list {
+  flex: 1;
+  padding: 20rpx;
+  padding-bottom: 20rpx;
+}
+
+.message-item {
+  margin-bottom: 30rpx;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+}
+
+.message-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: #f5f5f5;
+  flex-shrink: 0;
+}
+
+.message-content {
+  max-width: 70%;
+  margin: 0 20rpx;
+  padding: 20rpx 24rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.message-text {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.input-bar {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  padding-bottom: 40rpx;
+  background: #fff;
+  border-top: 1rpx solid #eee;
+}
+
+.input {
+  flex: 1;
+  height: 72rpx;
+  padding: 0 24rpx;
+  background: #f5f5f5;
+  border-radius: 36rpx;
+  font-size: 30rpx;
+}
+
+.send-btn {
+  margin-left: 20rpx;
+  padding: 0 32rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  background: #667eea;
+  color: #fff;
+  border-radius: 36rpx;
+  font-size: 28rpx;
+  border: none;
+}
+
+.send-btn[disabled] {
+  background: #ccc;
+  color: #fff;
+}

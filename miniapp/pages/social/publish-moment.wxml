@@ -1,0 +1,53 @@
+<view class="page">
+  <view class="form">
+    <!-- 心情标签 -->
+    <view class="form-item">
+      <text class="label">此刻心情</text>
+      <view class="mood-grid">
+        <view class="mood-item {{moodTag === '开心' ? 'active' : ''}}" bindtap="onSelectMood" data-mood="开心">😊</view>
+        <view class="mood-item {{moodTag === '焦虑' ? 'active' : ''}}" bindtap="onSelectMood" data-mood="焦虑">😰</view>
+        <view class="mood-item {{moodTag === '期待' ? 'active' : ''}}" bindtap="onSelectMood" data-mood="期待">🤩</view>
+        <view class="mood-item {{moodTag === '疲惫' ? 'active' : ''}}" bindtap="onSelectMood" data-mood="疲惫">😫</view>
+        <view class="mood-item {{moodTag === '加油' ? 'active' : ''}}" bindtap="onSelectMood" data-mood="加油">💪</view>
+        <view class="mood-item {{moodTag === '迷茫' ? 'active' : ''}}" bindtap="onSelectMood" data-mood="迷茫">🤔</view>
+        <view class="mood-item {{moodTag === '兴奋' ? 'active' : ''}}" bindtap="onSelectMood" data-mood="兴奋">🎉</view>
+        <view class="mood-item {{moodTag === '平静' ? 'active' : ''}}" bindtap="onSelectMood" data-mood="平静">😌</view>
+      </view>
+    </view>
+
+    <!-- 内容 -->
+    <view class="form-item">
+      <text class="label">说点什么...</text>
+      <textarea class="textarea" placeholder="记录考研路上的点点滴滴..." value="{{content}}" bindinput="onInputContent" maxlength="500"/>
+      <text class="char-count">{{content.length}}/500</text>
+    </view>
+
+    <!-- 图片 -->
+    <view class="form-item">
+      <text class="label">添加图片（可选）</text>
+      <view class="image-list">
+        <view class="image-item" wx:for="{{images}}" wx:key="index">
+          <image class="image-preview" src="{{item}}" mode="aspectFill"/>
+          <view class="image-delete" bindtap="onDeleteImage" data-index="{{index}}">×</view>
+        </view>
+        <view class="image-add" bindtap="onAddImage" wx:if="{{images.length < 9}}">
+          <text>+</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 位置 -->
+    <view class="form-item">
+      <text class="label">添加位置（可选）</text>
+      <view class="location-picker" bindtap="onChooseLocation">
+        <text wx:if="{{locationName}}">📍 {{locationName}}</text>
+        <text wx:else>📍 点击添加位置</text>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <button class="submit-btn" bindtap="onSubmit" disabled="{{submitting}}">
+      {{submitting ? '发布中...' : '发布瞬间'}}
+    </button>
+  </view>
+</view>

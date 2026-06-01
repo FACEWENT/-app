@@ -1,0 +1,120 @@
+<view class="page">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索院校名称" bindinput="onKeywordChange" value="{{keyword}}" confirm-type="search" bindconfirm="onSearch" />
+    <view class="search-btn" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <view class="filter-item {{showProvincePicker ? 'active' : ''}}" bindtap="toggleProvincePicker">
+      <text>{{filters.province || '地区'}}</text>
+      <text class="arrow">{{showProvincePicker ? '▲' : '▼'}}</text>
+    </view>
+    <view class="filter-item {{showLevelPicker ? 'active' : ''}}" bindtap="toggleLevelPicker">
+      <text>{{filters.school_level || '层次'}}</text>
+      <text class="arrow">{{showLevelPicker ? '▲' : '▼'}}</text>
+    </view>
+    <view class="filter-item {{showTypePicker ? 'active' : ''}}" bindtap="toggleTypePicker">
+      <text>{{filters.school_type || '类型'}}</text>
+      <text class="arrow">{{showTypePicker ? '▲' : '▼'}}</text>
+    </view>
+    <view class="filter-item {{showDisciplinePicker ? 'active' : ''}}" bindtap="toggleDisciplinePicker">
+      <text>{{filters.discipline_name || '专业'}}</text>
+      <text class="arrow">{{showDisciplinePicker ? '▲' : '▼'}}</text>
+    </view>
+  </view>
+
+  <!-- 筛选面板 -->
+  <view class="filter-panel" wx:if="{{showProvincePicker || showLevelPicker || showTypePicker || showDisciplinePicker}}">
+    <view class="filter-mask" bindtap="closeAllPickers"></view>
+    <!-- 地区选择 -->
+    <view class="panel-content" wx:if="{{showProvincePicker}}">
+      <view class="panel-item {{!filters.province ? 'selected' : ''}}" bindtap="selectProvince" data-value="">全部</view>
+      <view class="panel-item {{filters.province === item ? 'selected' : ''}}" wx:for="{{filterOptions.provinces}}" wx:key="*this" bindtap="selectProvince" data-value="{{item}}">{{item}}</view>
+    </view>
+    
+    <!-- 层次选择 -->
+    <view class="panel-content" wx:if="{{showLevelPicker}}">
+      <view class="panel-item {{!filters.school_level ? 'selected' : ''}}" bindtap="selectLevel" data-value="">全部</view>
+      <view class="panel-item {{filters.school_level === item ? 'selected' : ''}}" wx:for="{{filterOptions.school_levels}}" wx:key="*this" bindtap="selectLevel" data-value="{{item}}">{{item}}</view>
+    </view>
+    
+    <!-- 类型选择 -->
+    <view class="panel-content" wx:if="{{showTypePicker}}">
+      <view class="panel-item {{!filters.school_type ? 'selected' : ''}}" bindtap="selectType" data-value="">全部</view>
+      <view class="panel-item {{filters.school_type === item ? 'selected' : ''}}" wx:for="{{filterOptions.school_types}}" wx:key="*this" bindtap="selectType" data-value="{{item}}">{{item}}</view>
+    </view>
+    
+    <!-- 专业选择 -->
+    <view class="panel-content" wx:if="{{showDisciplinePicker}}">
+      <view class="panel-item {{!filters.discipline_code ? 'selected' : ''}}" bindtap="selectDiscipline" data-code="" data-name="">全部</view>
+      <view class="panel-item {{filters.discipline_code === item.code ? 'selected' : ''}}" wx:for="{{filterOptions.disciplines}}" wx:key="code" bindtap="selectDiscipline" data-code="{{item.code}}" data-name="{{item.name}}">{{item.name}}</view>
+    </view>
+  </view>
+
+  <!-- 已选筛选条件 -->
+  <view class="active-filters" wx:if="{{hasActiveFilters}}">
+    <view class="filter-tag" wx:if="{{filters.province}}">
+      <text>{{filters.province}}</text>
+      <text class="tag-close" bindtap="clearProvince">×</text>
+    </view>
+    <view class="filter-tag" wx:if="{{filters.school_level}}">
+      <text>{{filters.school_level}}</text>
+      <text class="tag-close" bindtap="clearLevel">×</text>
+    </view>
+    <view class="filter-tag" wx:if="{{filters.school_type}}">
+      <text>{{filters.school_type}}</text>
+      <text class="tag-close" bindtap="clearType">×</text>
+    </view>
+    <view class="filter-tag" wx:if="{{filters.discipline_name}}">
+      <text>{{filters.discipline_name}}</text>
+      <text class="tag-close" bindtap="clearDiscipline">×</text>
+    </view>
+    <view class="clear-all" bindtap="clearAllFilters">清除全部</view>
+  </view>
+
+  <!-- 统计信息 -->
+  <view class="stats-bar">
+    <text class="stats-text">共 {{total}} 所院校</text>
+  </view>
+
+  <!-- 院校列表 -->
+  <view class="school-list">
+    <view class="school-card" wx:for="{{schools}}" wx:key="id" bindtap="openDetail" data-id="{{item.id}}">
+      <view class="school-header">
+        <view class="school-name">{{item.name}}</view>
+        <view class="school-ranking" wx:if="{{item.ranking}}">排名 {{item.ranking}}</view>
+      </view>
+      <view class="school-location">{{item.province}} · {{item.city}}</view>
+      <view class="school-levels">
+        <view class="level-tag tag-985" wx:if="{{item.is_985}}">985</view>
+        <view class="level-tag tag-211" wx:if="{{item.is_211}}">211</view>
+        <view class="level-tag tag-double" wx:if="{{item.is_double_first_class}}">双一流</view>
+        <view class="level-tag tag-type" wx:if="{{item.school_type}}">{{item.school_type}}</view>
+      </view>
+      <view class="school-intro" wx:if="{{item.intro}}">{{item.intro}}</view>
+      <view class="school-arrow">›</view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore}}" bindtap="loadMore">
+      <text>加载更多</text>
+    </view>
+    <view class="load-more" wx:if="{{!hasMore && schools.length > 0}}">
+      <text>已加载全部</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && schools.length === 0}}">
+    <view class="empty-icon">🔍</view>
+    <view class="empty-text">暂无匹配的院校</view>
+    <view class="empty-desc">请调整筛选条件后重试</view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-overlay" wx:if="{{loading}}">
+    <view class="loading-spinner">加载中...</view>
+  </view>
+</view>

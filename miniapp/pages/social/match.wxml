@@ -1,0 +1,159 @@
+<view class="page">
+  <!-- 顶部标题 -->
+  <view class="header">
+    <text class="title">匹配考研网友</text>
+    <text class="subtitle">找到志同道合的考研伙伴</text>
+  </view>
+
+  <!-- 功能模块区域 -->
+  <view class="features-section">
+    <view class="feature-grid">
+      <view class="feature-item" bindtap="onFeatureTap" data-type="study_buddy">
+        <view class="feature-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          <text class="icon-text">👥</text>
+        </view>
+        <text class="feature-name">灵魂匹配</text>
+      </view>
+
+      <view class="feature-item" bindtap="onFeatureTap" data-type="material_share">
+        <view class="feature-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+          <text class="icon-text">📚</text>
+        </view>
+        <text class="feature-name">资料互助</text>
+      </view>
+
+      <view class="feature-item" bindtap="onFeatureTap" data-type="question_help">
+        <view class="feature-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+          <text class="icon-text">❓</text>
+        </view>
+        <text class="feature-name">问题咨询</text>
+      </view>
+
+      <view class="feature-item" bindtap="onFeatureTap" data-type="experience_share">
+        <view class="feature-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+          <text class="icon-text">📝</text>
+        </view>
+        <text class="feature-name">经验分享</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 树洞瞬间区域 - 小红书风格 -->
+  <view class="moments-section">
+    <view class="section-header">
+      <text class="section-title">考研树洞</text>
+      <text class="section-desc">记录考研路上的点点滴滴</text>
+    </view>
+
+    <!-- 发布瞬间按钮 -->
+    <view class="publish-btn" bindtap="onPublishMoment">
+      <text class="publish-icon">+</text>
+    </view>
+
+    <!-- 瞬间列表 - 双列瀑布流 -->
+    <scroll-view 
+      class="moments-scroll" 
+      scroll-y 
+      refresher-enabled
+      refresher-triggered="{{refreshing}}"
+      bindrefresherrefresh="onRefresh"
+      bindscrolltolower="onLoadMore">
+      
+      <view class="waterfall-container">
+        <!-- 左列 -->
+        <view class="waterfall-column">
+          <view class="moment-card" wx:for="{{leftColumn}}" wx:key="id" bindtap="viewMomentDetail" data-id="{{item.id}}">
+            <!-- 图片区域 -->
+            <view class="moment-images" wx:if="{{item.images && item.images.length > 0}}">
+              <image class="moment-cover" src="{{item.images[0]}}" mode="widthFix" />
+              <!-- 多图标识 -->
+              <view class="image-count-badge" wx:if="{{item.images.length > 1}}">
+                <text>{{item.images.length}}</text>
+              </view>
+            </view>
+            
+            <!-- 纯文字卡片背景 -->
+            <view class="moment-text-bg" wx:else>
+              <text class="moment-text-preview">{{item.content}}</text>
+            </view>
+
+            <!-- 内容区域 -->
+            <view class="moment-content">
+              <text class="moment-title">{{item.content}}</text>
+              
+              <!-- 标签 -->
+              <view class="moment-tags" wx:if="{{item.tags && item.tags.length > 0}}">
+                <text class="tag" wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag">#{{tag}}</text>
+              </view>
+
+              <!-- 底部信息 -->
+              <view class="moment-footer">
+                <view class="author-info">
+                  <image class="author-avatar" src="{{item.avatar_url ? item.avatar_url : '/images/default-avatar.png'}}" mode="aspectFill" />
+                  <text class="author-name">{{item.nickname}}</text>
+                </view>
+                <view class="moment-stats">
+                  <text class="stat-item">❤️ {{item.like_count}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 右列 -->
+        <view class="waterfall-column">
+          <view class="moment-card" wx:for="{{rightColumn}}" wx:key="id" bindtap="viewMomentDetail" data-id="{{item.id}}">
+            <!-- 图片区域 -->
+            <view class="moment-images" wx:if="{{item.images && item.images.length > 0}}">
+              <image class="moment-cover" src="{{item.images[0]}}" mode="widthFix" />
+              <view class="image-count-badge" wx:if="{{item.images.length > 1}}">
+                <text>{{item.images.length}}</text>
+              </view>
+            </view>
+            
+            <!-- 纯文字卡片背景 -->
+            <view class="moment-text-bg" wx:else>
+              <text class="moment-text-preview">{{item.content}}</text>
+            </view>
+
+            <!-- 内容区域 -->
+            <view class="moment-content">
+              <text class="moment-title">{{item.content}}</text>
+              
+              <!-- 标签 -->
+              <view class="moment-tags" wx:if="{{item.tags && item.tags.length > 0}}">
+                <text class="tag" wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag">#{{tag}}</text>
+              </view>
+
+              <!-- 底部信息 -->
+              <view class="moment-footer">
+                <view class="author-info">
+                  <image class="author-avatar" src="{{item.avatar_url ? item.avatar_url : '/images/default-avatar.png'}}" mode="aspectFill" />
+                  <text class="author-name">{{item.nickname}}</text>
+                </view>
+                <view class="moment-stats">
+                  <text class="stat-item">❤️ {{item.like_count}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 加载更多 -->
+      <view class="load-more" wx:if="{{momentsHasMore}}">
+        <text>上拉加载更多...</text>
+      </view>
+      <view class="no-more" wx:if="{{!momentsHasMore && (leftColumn.length > 0 || rightColumn.length > 0)}}">
+        <text>- 已经到底啦 -</text>
+      </view>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{!loading && leftColumn.length === 0 && rightColumn.length === 0}}">
+        <text class="empty-icon">🌌</text>
+        <text class="empty-text">暂无树洞动态</text>
+        <text class="empty-hint">成为第一个发树洞的人吧</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,78 @@
+<view class="page">
+  <view class="form">
+    <!-- 标题 -->
+    <view class="form-item">
+      <text class="label">标题</text>
+      <input class="input" placeholder="请输入标题" value="{{title}}" bindinput="onInputTitle" maxlength="50"/>
+    </view>
+
+    <!-- 类型 -->
+    <view class="form-item">
+      <text class="label">类型</text>
+      <view class="radio-group">
+        <view class="radio {{postType === 'book' ? 'active' : ''}}" bindtap="onSelectType" data-type="book">书籍</view>
+        <view class="radio {{postType === 'notes' ? 'active' : ''}}" bindtap="onSelectType" data-type="notes">笔记</view>
+        <view class="radio {{postType === 'video' ? 'active' : ''}}" bindtap="onSelectType" data-type="video">视频</view>
+        <view class="radio {{postType === 'other' ? 'active' : ''}}" bindtap="onSelectType" data-type="other">其他</view>
+      </view>
+    </view>
+
+    <!-- 分类 -->
+    <view class="form-item">
+      <text class="label">分类</text>
+      <picker bindchange="onCategoryChange" value="{{categoryIndex}}" range="{{categories}}">
+        <view class="picker">{{categoryIndex >= 0 ? categories[categoryIndex] : '请选择分类'}}</view>
+      </picker>
+    </view>
+
+    <!-- 价格 -->
+    <view class="form-item">
+      <text class="label">价格（元）</text>
+      <input class="input" type="digit" placeholder="请输入价格" value="{{price}}" bindinput="onInputPrice"/>
+    </view>
+
+    <!-- 原价 -->
+    <view class="form-item">
+      <text class="label">原价（元，可选）</text>
+      <input class="input" type="digit" placeholder="请输入原价" value="{{originalPrice}}" bindinput="onInputOriginalPrice"/>
+    </view>
+
+    <!-- 新旧程度 -->
+    <view class="form-item">
+      <text class="label">新旧程度</text>
+      <view class="radio-group">
+        <view class="radio {{condition === 'new' ? 'active' : ''}}" bindtap="onSelectCondition" data-condition="new">全新</view>
+        <view class="radio {{condition === 'like_new' ? 'active' : ''}}" bindtap="onSelectCondition" data-condition="like_new">九成新</view>
+        <view class="radio {{condition === 'good' ? 'active' : ''}}" bindtap="onSelectCondition" data-condition="good">七成新</view>
+        <view class="radio {{condition === 'fair' ? 'active' : ''}}" bindtap="onSelectCondition" data-condition="fair">五成新</view>
+      </view>
+    </view>
+
+    <!-- 介绍 -->
+    <view class="form-item">
+      <text class="label">详细介绍</text>
+      <textarea class="textarea" placeholder="请详细描述资料内容、使用情况等" value="{{content}}" bindinput="onInputContent" maxlength="500"/>
+      <text class="char-count">{{content.length}}/500</text>
+    </view>
+
+    <!-- 位置 -->
+    <view class="form-item">
+      <text class="label">位置</text>
+      <view class="location-picker" bindtap="onChooseLocation">
+        <text wx:if="{{city}}">📍 {{province}} {{city}} {{detailAddress}}</text>
+        <text wx:else>点击选择位置</text>
+      </view>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="form-item">
+      <text class="label">联系方式（可选）</text>
+      <input class="input" placeholder="微信号、手机号等" value="{{contactInfo}}" bindinput="onInputContact"/>
+    </view>
+
+    <!-- 提交按钮 -->
+    <button class="submit-btn" bindtap="onSubmit" disabled="{{submitting}}">
+      {{submitting ? '发布中...' : '发布'}}
+    </button>
+  </view>
+</view>

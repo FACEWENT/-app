@@ -1,0 +1,67 @@
+{
+  "pages": [
+    "pages/soul-matching/index",
+    "pages/soul-matching/preferences",
+    "pages/soul-matching/payment",
+    "pages/soul-matching/matching",
+    "pages/soul-matching/result",
+    "pages/social/match",
+    "pages/social/chats",
+    "pages/social/chat",
+    "pages/social/publish-moment",
+    "pages/social/moment-detail",
+    "pages/experience/list",
+    "pages/experience/detail",
+    "pages/experience/publish",
+    "pages/study/list",
+    "pages/study/publish",
+    "pages/study/detail",
+    "pages/tutoring/index",
+    "pages/tutoring/publish",
+    "pages/tutoring/detail",
+    "pages/tutoring/target-school",
+    "pages/ai/index",
+    "pages/schools/index",
+    "pages/schools/detail",
+    "pages/school-detail/index",
+    "pages/transfer/index",
+    "pages/me/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "考研择校调剂系统",
+    "navigationBarBackgroundColor": "#0f2a43",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f7fb",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#7b8794",
+    "selectedColor": "#0f766e",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/social/match",
+        "text": "匹配网友"
+      },
+      {
+        "pagePath": "pages/ai/index",
+        "text": "AI择校"
+      },
+      {
+        "pagePath": "pages/schools/index",
+        "text": "院校库"
+      },
+      {
+        "pagePath": "pages/transfer/index",
+        "text": "调剂系统"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

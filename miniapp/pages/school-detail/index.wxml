@@ -1,0 +1,33 @@
+<view class="page" wx:if="{{detail}}">
+  <view class="hero">
+    <view class="hero-title">{{detail.name}}</view>
+    <view class="hero-subtitle">{{detail.province}} · {{detail.city}}</view>
+    <view class="tag-row">
+      <view class="tag" wx:for="{{detail.school_levels}}" wx:key="*this" wx:for-item="level">{{level}}</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">院校简介</view>
+    <view style="margin-top: 18rpx; line-height: 1.7;">{{detail.intro}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">择校概览</view>
+    <view class="muted" style="margin-top: 18rpx;">开设项目数：{{detail.stats.program_count}}</view>
+    <view class="muted" style="margin-top: 8rpx;">平均复试线：{{detail.stats.average_reexam_score}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">招生项目</view>
+    <view class="list-item" wx:for="{{detail.offerings}}" wx:key="id">
+      <view class="item-title">{{item.program_name}} · {{item.year}}</view>
+      <view class="tag-row">
+        <view class="tag">复试线 {{item.reexam_score}}</view>
+        <view class="tag">招生 {{item.enrollment}}</view>
+        <view class="tag">最低录取 {{item.admission_lowest}}</view>
+      </view>
+      <view class="muted" style="margin-top: 14rpx;">考试科目：{{item.subject_text}}</view>
+    </view>
+  </view>
+</view>

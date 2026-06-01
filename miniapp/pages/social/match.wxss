@@ -1,0 +1,302 @@
+.page {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+/* 顶部标题 */
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40rpx;
+  text-align: center;
+}
+
+.title {
+  display: block;
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 12rpx;
+}
+
+.subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 功能模块区域 */
+.features-section {
+  background: #fff;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20rpx;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 10rpx;
+}
+
+.feature-item:active {
+  opacity: 0.7;
+}
+
+.feature-icon {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  margin-bottom: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+}
+
+.icon-text {
+  font-size: 44rpx;
+}
+
+.feature-name {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* ========================================
+   树洞瞬间 - 小红书风格
+   ======================================== */
+.moments-section {
+  position: relative;
+  padding-bottom: 40rpx;
+}
+
+.section-header {
+  padding: 30rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.section-desc {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 发布按钮 - 悬浮 */
+.publish-btn {
+  position: fixed;
+  right: 40rpx;
+  bottom: 160rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(255, 107, 107, 0.4);
+  z-index: 100;
+}
+
+.publish-btn:active {
+  transform: scale(0.95);
+}
+
+.publish-icon {
+  font-size: 60rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* 滚动区域 */
+.moments-scroll {
+  height: calc(100vh - 300rpx);
+}
+
+/* 瀑布流容器 */
+.waterfall-container {
+  display: flex;
+  padding: 0 20rpx;
+  gap: 20rpx;
+}
+
+.waterfall-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* 瞬间卡片 */
+.moment-card {
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.moment-card:active {
+  transform: scale(0.98);
+}
+
+/* 图片区域 */
+.moment-images {
+  position: relative;
+}
+
+.moment-cover {
+  width: 100%;
+  display: block;
+}
+
+.image-count-badge {
+  position: absolute;
+  top: 15rpx;
+  right: 15rpx;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+}
+
+/* 纯文字背景 */
+.moment-text-bg {
+  min-height: 200rpx;
+  padding: 30rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+}
+
+.moment-text-preview {
+  font-size: 28rpx;
+  color: #fff;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
+/* 内容区域 */
+.moment-content {
+  padding: 20rpx;
+}
+
+.moment-title {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 15rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* 标签 */
+.moment-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-bottom: 15rpx;
+}
+
+.tag {
+  font-size: 22rpx;
+  color: #667eea;
+  background: #f0f4ff;
+  padding: 6rpx 15rpx;
+  border-radius: 20rpx;
+}
+
+/* 底部信息 */
+.moment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.author-avatar {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+}
+
+.author-name {
+  font-size: 22rpx;
+  color: #666;
+  max-width: 150rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.moment-stats {
+  display: flex;
+  gap: 15rpx;
+}
+
+.stat-item {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 加载更多 */
+.load-more, .no-more {
+  text-align: center;
+  padding: 30rpx;
+  color: #999;
+  font-size: 24rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 120rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  display: block;
+  margin-bottom: 30rpx;
+}
+
+.empty-text {
+  display: block;
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.empty-hint {
+  display: block;
+  font-size: 26rpx;
+  color: #999;
+}

@@ -1,0 +1,81 @@
+<view class="page">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input" bindtap="onSearch">
+      <text class="search-icon">🔍</text>
+      <text class="search-placeholder">搜索资料、笔记、书籍...</text>
+    </view>
+    <view class="publish-btn" bindtap="onPublish">
+      <text>+</text>
+    </view>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <view class="filter-item {{filterType === '' ? 'active' : ''}}" bindtap="onFilterType" data-type="">
+      <text>全部</text>
+    </view>
+    <view class="filter-item {{filterType === 'book' ? 'active' : ''}}" bindtap="onFilterType" data-type="book">
+      <text>书籍</text>
+    </view>
+    <view class="filter-item {{filterType === 'notes' ? 'active' : ''}}" bindtap="onFilterType" data-type="notes">
+      <text>笔记</text>
+    </view>
+    <view class="filter-item {{filterType === 'video' ? 'active' : ''}}" bindtap="onFilterType" data-type="video">
+      <text>视频</text>
+    </view>
+  </view>
+
+  <!-- 帖子列表 -->
+  <scroll-view class="post-list" scroll-y bindscrolltolower="onLoadMore">
+    <view class="post-card" wx:for="{{posts}}" wx:key="id" bindtap="onPostTap" data-id="{{item.id}}">
+      <!-- 封面图 -->
+      <image class="post-cover" src="{{item.cover_image}}" mode="aspectFill" wx:if="{{item.cover_image}}"/>
+      
+      <view class="post-content">
+        <!-- 标题和描述 -->
+        <text class="post-title">{{item.title}}</text>
+        <text class="post-desc">{{item.content}}</text>
+        
+        <!-- 标签 -->
+        <view class="post-tags" wx:if="{{item.tags && item.tags.length > 0}}">
+          <text class="tag" wx:for="{{item.tags}}" wx:key="index" wx:for-item="tag">{{tag}}</text>
+        </view>
+        
+        <!-- 底部信息 -->
+        <view class="post-footer">
+          <view class="post-price">
+            <text class="price">¥{{item.price}}</text>
+            <text class="original-price" wx:if="{{item.original_price}}">¥{{item.original_price}}</text>
+          </view>
+          <view class="post-meta">
+            <text class="location" wx:if="{{item.city}}">📍 {{item.city}}</text>
+            <text class="stats">👁 {{item.view_count}} ❤ {{item.like_count}}</text>
+          </view>
+        </view>
+        
+        <!-- 用户信息 -->
+        <view class="post-user">
+          <image class="user-avatar" src="{{item.avatar_url ? item.avatar_url : '/images/default-avatar.png'}}" mode="aspectFill"/>
+          <text class="user-name">{{item.nickname}}</text>
+          <text class="post-time">{{item.created_at}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore}}">
+      <text>加载更多...</text>
+    </view>
+    <view class="no-more" wx:if="{{!hasMore && posts.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && posts.length === 0}}">
+      <text class="empty-icon">📚</text>
+      <text class="empty-text">暂无学习资料</text>
+      <text class="empty-hint">点击右上方 + 发布你的资料吧</text>
+    </view>
+  </scroll-view>
+</view>

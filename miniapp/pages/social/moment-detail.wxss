@@ -1,0 +1,303 @@
+.detail-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 120rpx;
+}
+
+/* 瞬间卡片 */
+.moment-card {
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+
+/* 作者区域 */
+.author-section {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.author-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.author-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.author-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.publish-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.follow-btn {
+  padding: 12rpx 30rpx;
+  border: 2rpx solid #ff6b6b;
+  border-radius: 30rpx;
+  color: #ff6b6b;
+  font-size: 24rpx;
+}
+
+/* 内容区域 */
+.content-section {
+  padding: 30rpx;
+}
+
+.content-text {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.7;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.tag {
+  font-size: 24rpx;
+  color: #667eea;
+  background: #f0f4ff;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+/* 图片区域 */
+.images-section {
+  margin-bottom: 20rpx;
+}
+
+.image-swiper {
+  width: 100%;
+  min-height: 400rpx;
+}
+
+.full-image {
+  width: 100%;
+  display: block;
+}
+
+/* 位置信息 */
+.location-section {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background: #f9f9f9;
+  margin: 0 30rpx 20rpx;
+  border-radius: 12rpx;
+}
+
+.location-icon {
+  margin-right: 10rpx;
+}
+
+.location-text {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 互动数据 */
+.stats-section {
+  padding: 20rpx 30rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.stats-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 互动按钮 */
+.action-bar {
+  display: flex;
+  background: #fff;
+  padding: 20rpx 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.action-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.action-icon {
+  font-size: 40rpx;
+}
+
+.action-text {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.action-item.liked .action-text {
+  color: #ff6b6b;
+}
+
+/* 评论区 */
+.comments-section {
+  background: #fff;
+}
+
+.comments-header {
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.comments-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 评论列表 */
+.comment-list {
+  padding: 0 30rpx;
+}
+
+.comment-item {
+  display: flex;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.comment-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.comment-author {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.comment-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.comment-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  display: block;
+  margin-bottom: 15rpx;
+}
+
+/* 评论回复 */
+.comment-replies {
+  background: #f9f9f9;
+  padding: 20rpx;
+  border-radius: 12rpx;
+}
+
+.reply-item {
+  margin-bottom: 15rpx;
+}
+
+.reply-author {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.reply-text {
+  font-size: 26rpx;
+  color: #333;
+}
+
+/* 空评论状态 */
+.empty-comments {
+  text-align: center;
+  padding: 100rpx 30rpx;
+}
+
+.empty-comments .empty-icon {
+  font-size: 100rpx;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.empty-comments .empty-text {
+  display: block;
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.empty-comments .empty-hint {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 底部评论输入框 */
+.comment-input-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background: #fff;
+  box-shadow: 0 -4rpx 12rpx rgba(0, 0, 0, 0.05);
+  gap: 20rpx;
+}
+
+.comment-input {
+  flex: 1;
+  height: 70rpx;
+  background: #f5f5f5;
+  border-radius: 35rpx;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  color: #fff;
+  border: none;
+  border-radius: 35rpx;
+  padding: 0 40rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.submit-btn::after {
+  border: none;
+}
