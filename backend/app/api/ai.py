@@ -1,5 +1,8 @@
 """考研AI Agent路由 - 智能择校 / 调剂 / 院校对比 / 数据问答"""
+import json
+
 from fastapi import APIRouter, HTTPException, Query
+from fastapi.responses import StreamingResponse
 
 from app.core.response import success
 from app.schemas.ai_agent import (
@@ -67,6 +70,56 @@ def agent_chat(payload: AgentChatRequest):
         "session_id": session_id,
         **reply,
     })
+
+
+@router.post("/agent/chat/stream")
+def agent_chat_stream(payload: AgentChatRequest):
+    """流式版 Agent 对话，以 SSE (text/event-stream) 返回。
+
+    事件类型：
+      - session  : {"event":"session","session_id":int}
+      - delta    : {"event":"delta","content":"增量文本"}
+      - tool_call_start / tool_call_end
+      - done     : 完整回复 + structured_payload
+      - error    : 错误信息
+      - [DONE]   : 流结束标记
+    """
+    session_id = payload.session_id
+    if not session_id:
+        if not payload.user_id:
+            raise HTTPException(status_code=400, detail="未登录用户必须传入 session_id 或先创建会话")
+        session_id = session_store.create_session(
+            user_id=payload.user_id,
+            scene_type=payload.scene_type,
+        )
+
+    sess = session_store.get_session(session_id)
+    if not sess:
+        raise HTTPException(status_code=404, detail="会话不存在")
+    if payload.user_id and sess.get("user_id") and sess["user_id"] != payload.user_id:
+        raise HTTPException(status_code=403, detail="无权访问该会话")
+
+    agent = KaoyanAgent(user_id=payload.user_id, scene_type=payload.scene_type)
+
+    def event_gen():
+        # 先送会话 ID
+        yield "data: " + json.dumps({"event": "session", "session_id": session_id}, ensure_ascii=False) + "\n\n"
+        try:
+            for evt in agent.chat_stream(session_id, payload.message):
+                yield "data: " + json.dumps(evt, ensure_ascii=False, default=str) + "\n\n"
+        except Exception as exc:  # noqa: BLE001
+            yield "data: " + json.dumps({"event": "error", "message": str(exc)}, ensure_ascii=False) + "\n\n"
+        yield "data: [DONE]\n\n"
+
+    return StreamingResponse(
+        event_gen(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+            "Connection": "keep-alive",
+        },
+    )
 
 
 # ---------------------- 会话管理 ----------------------

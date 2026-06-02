@@ -12,7 +12,7 @@
       value="{{question}}"
       bindinput="onInput"
     />
-    <button class="button" loading="{{loading}}" bindtap="onSubmit">发送给 AI</button>
+    <button class="button" loading="{{loading}}" bindtap="onSubmit">{{loading ? 'AI 正在生成…' : '发送给 AI'}}</button>
     <view class="chip-list">
       <view
         class="chip"
@@ -30,18 +30,34 @@
   <view class="card" wx:if="{{messages.length > 0}}">
     <view class="section-title">对话记录</view>
     <view class="chat-list">
-      <view
-        class="chat-bubble {{item.role === 'user' ? 'bubble-user' : 'bubble-ai'}}"
-        wx:for="{{messages}}"
-        wx:key="index"
-      >
-        <view class="bubble-role">{{item.role === 'user' ? '我' : 'AI'}}</view>
-        <view class="bubble-content">{{item.content}}</view>
-      </view>
-      <view class="chat-bubble bubble-ai" wx:if="{{loading}}">
-        <view class="bubble-role">AI</view>
-        <view class="bubble-content">思考中…</view>
-      </view>
+      <block wx:for="{{messages}}" wx:key="index" wx:for-index="msgIdx">
+        <view class="chat-bubble {{item.role === 'user' ? 'bubble-user' : 'bubble-ai'}}">
+          <view class="bubble-role">{{item.role === 'user' ? '我' : 'AI'}}</view>
+
+          <!-- AI 工具调用过程 -->
+          <view class="thinking-box" wx:if="{{item.role === 'assistant' && item.thinking && item.thinking.length > 0}}">
+            <view class="thinking-header" data-idx="{{msgIdx}}" bindtap="toggleThinking">
+              <text class="thinking-icon">🔧</text>
+              <text class="thinking-title">AI 思考过程（调用了 {{item.thinking.length}} 个数据库工具）</text>
+              <text class="thinking-toggle">{{item.thinkingCollapsed ? '▼' : '▲'}}</text>
+            </view>
+            <view class="thinking-list" wx:if="{{!item.thinkingCollapsed}}">
+              <view class="thinking-item" wx:for="{{item.thinking}}" wx:for-item="t" wx:key="index" wx:for-index="ti">
+                <text class="thinking-status status-{{t.status}}">{{t.status === 'running' ? '⏳' : '✓'}}</text>
+                <view class="thinking-detail">
+                  <view class="thinking-name">{{t.name}}</view>
+                  <view class="thinking-summary" wx:if="{{t.summary}}">{{t.summary}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <view class="bubble-content">
+            <text>{{item.content}}</text>
+            <text class="bubble-cursor" wx:if="{{item.streaming}}">▎</text>
+          </view>
+        </view>
+      </block>
     </view>
   </view>
 

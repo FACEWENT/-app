@@ -65,6 +65,47 @@ def call_llm(messages: list[dict], tools: list[dict] | None = None,
     return choices[0].get("message") or {}
 
 
+def call_llm_stream(messages: list[dict], tools: list[dict] | None = None,
+                    temperature: float = 0.5, model: str | None = None):
+    """流式调用 qwen，返回生成器，逐片段 yield。
+
+    每次 yield: {"message": {role, content, tool_calls?}, "finish_reason": str|None}
+    使用 incremental_output=True，content 为增量片段。
+    """
+    if not DASHSCOPE_API_KEY:
+        raise LLMError("缺少 DASHSCOPE_API_KEY，请在 .env 中配置")
+
+    params: dict[str, Any] = {
+        "model": model or DASHSCOPE_MODEL,
+        "messages": messages,
+        "result_format": "message",
+        "temperature": temperature,
+        "stream": True,
+        "incremental_output": True,
+    }
+    if tools:
+        params["tools"] = tools
+
+    try:
+        responses = Generation.call(**params)
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("DashScope 流式调用异常")
+        raise LLMError(f"调用大模型异常: {exc}") from exc
+
+    for resp in responses:
+        if getattr(resp, "status_code", 200) != 200:
+            msg = getattr(resp, "message", "unknown error")
+            raise LLMError(f"DashScope 返回错误: {msg}")
+        output = getattr(resp, "output", None) or {}
+        choices = output.get("choices") if isinstance(output, dict) else None
+        if not choices:
+            continue
+        choice = choices[0] or {}
+        message = choice.get("message") or {}
+        finish_reason = choice.get("finish_reason")
+        yield {"message": message, "finish_reason": finish_reason}
+
+
 def parse_tool_arguments(raw: Any) -> dict:
     """工具调用 arguments 通常是 JSON 字符串"""
     if isinstance(raw, dict):
