@@ -1,7 +1,7 @@
 <view class="page">
   <view class="hero">
     <view class="hero-title">AI智能择校</view>
-    <view class="hero-subtitle">输入分数、专业代码和偏好，直接给你择校结论</view>
+    <view class="hero-subtitle">基于通义千问大模型 + 真实招生数据，实时给你择校结论</view>
   </view>
 
   <view class="card">
@@ -12,7 +12,7 @@
       value="{{question}}"
       bindinput="onInput"
     />
-    <button class="button" loading="{{loading}}" bindtap="onSubmit">开始解读</button>
+    <button class="button" loading="{{loading}}" bindtap="onSubmit">发送给 AI</button>
     <view class="chip-list">
       <view
         class="chip"
@@ -26,6 +26,26 @@
     </view>
   </view>
 
+  <!-- 聊天对话区 -->
+  <view class="card" wx:if="{{messages.length > 0}}">
+    <view class="section-title">对话记录</view>
+    <view class="chat-list">
+      <view
+        class="chat-bubble {{item.role === 'user' ? 'bubble-user' : 'bubble-ai'}}"
+        wx:for="{{messages}}"
+        wx:key="index"
+      >
+        <view class="bubble-role">{{item.role === 'user' ? '我' : 'AI'}}</view>
+        <view class="bubble-content">{{item.content}}</view>
+      </view>
+      <view class="chat-bubble bubble-ai" wx:if="{{loading}}">
+        <view class="bubble-role">AI</view>
+        <view class="bubble-content">思考中…</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 结构化推荐：识别条件 -->
   <view class="card" wx:if="{{result}}">
     <view class="section-title">解读结果</view>
     <view style="margin-top: 18rpx; line-height: 1.7;">{{result.summary}}</view>
@@ -34,9 +54,9 @@
     </view>
   </view>
 
-  <view class="card" wx:if="{{result.plan}}">
+  <view class="card" wx:if="{{result.plan && result.plan.rush.length > 0}}">
     <view class="section-title">冲刺院校</view>
-    <view class="list-item" wx:for="{{result.plan.rush}}" wx:key="id" data-id="{{item.institution_id}}" bindtap="openSchool">
+    <view class="list-item" wx:for="{{result.plan.rush}}" wx:key="institution_id" data-id="{{item.institution_id}}" bindtap="openSchool">
       <view class="item-title">{{item.school_name}} · {{item.program_name}}</view>
       <view class="tag-row">
         <view class="tag risk-rush">冲</view>
@@ -47,9 +67,9 @@
     </view>
   </view>
 
-  <view class="card" wx:if="{{result.plan}}">
+  <view class="card" wx:if="{{result.plan && result.plan.match.length > 0}}">
     <view class="section-title">稳妥院校</view>
-    <view class="list-item" wx:for="{{result.plan.match}}" wx:key="id" data-id="{{item.institution_id}}" bindtap="openSchool">
+    <view class="list-item" wx:for="{{result.plan.match}}" wx:key="institution_id" data-id="{{item.institution_id}}" bindtap="openSchool">
       <view class="item-title">{{item.school_name}} · {{item.program_name}}</view>
       <view class="tag-row">
         <view class="tag risk-match">稳</view>
@@ -60,9 +80,9 @@
     </view>
   </view>
 
-  <view class="card" wx:if="{{result.plan}}">
+  <view class="card" wx:if="{{result.plan && result.plan.safe.length > 0}}">
     <view class="section-title">保底院校</view>
-    <view class="list-item" wx:for="{{result.plan.safe}}" wx:key="id" data-id="{{item.institution_id}}" bindtap="openSchool">
+    <view class="list-item" wx:for="{{result.plan.safe}}" wx:key="institution_id" data-id="{{item.institution_id}}" bindtap="openSchool">
       <view class="item-title">{{item.school_name}} · {{item.program_name}}</view>
       <view class="tag-row">
         <view class="tag risk-safe">保</view>
